@@ -3,110 +3,123 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pick a Mock</title>
+<title>Pick a Look</title>
 <style>
-  :root { --bg: #fbf6ee; --card: #fff; --ink: #221a14; --muted: #6d6158; --line: #eadfce; --coral: #e04e5a; }
+  :root { --bg: #f4f4f5; --card: #fff; --ink: #18181b; --muted: #52525b; --line: #e4e4e7; }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  main { max-width: 1180px; margin: 0 auto; padding: 56px 20px 80px; }
-  h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.03em; line-height: 1.1; }
-  .intro { margin-top: 12px; max-width: 46em; color: var(--muted); font-size: 18px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; transition: translate .2s, box-shadow .2s; }
-  .card:hover { translate: 0 -4px; box-shadow: 0 20px 34px -22px rgb(0 0 0 / .35); }
-  .shots { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; background: #eee; border-bottom: 1px solid var(--line); }
-  .shots .desk { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-  .shots .ph { position: absolute; right: 14px; bottom: -40px; width: 92px; border-radius: 14px; border: 4px solid var(--ink); background: var(--ink); box-shadow: 0 10px 20px -8px rgb(0 0 0 / .5); }
-  .body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .num { font: 700 13px/1 ui-monospace, Consolas, monospace; color: var(--coral); letter-spacing: .08em; }
-  h2 { font-size: 26px; letter-spacing: -0.02em; line-height: 1.1; }
+  main { max-width: 1120px; margin: 0 auto; padding: 56px 20px 72px; }
+  h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.025em; line-height: 1.15; }
+  .intro { margin-top: 12px; max-width: 44em; color: var(--muted); font-size: 17px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+  .card.now { background: transparent; border-style: dashed; }
+  .shots { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #e9e9ec; border-bottom: 1px solid var(--line); }
+  .shots .desk { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: scale .3s; }
+  a.shots:hover .desk { scale: 1.02; }
+  .shots .ph { position: absolute; right: 16px; bottom: -36px; width: 96px; border-radius: 14px; border: 4px solid var(--ink); background: var(--ink); box-shadow: 0 12px 24px -10px rgb(0 0 0 / .45); }
+  .body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .label { font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  h2 { font-size: 24px; letter-spacing: -0.015em; line-height: 1.2; }
   .feel { color: var(--muted); }
-  .feel b { color: var(--ink); font-weight: 600; }
-  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 8px; }
-  .btn { padding: 10px 16px; border-radius: 999px; font-weight: 700; text-decoration: none; color: var(--ink); border: 2px solid var(--ink); }
-  .btn.solid { background: var(--ink); color: #fff; }
-  .btn:hover { background: var(--coral); border-color: var(--coral); color: #fff; }
-  .new { display: grid; grid-template-columns: 1.4fr 1fr; margin-top: 36px; border: 2px solid var(--ink); box-shadow: 8px 8px 0 #f6c445; }
-  .new .shots { aspect-ratio: auto; height: 100%; min-height: 320px; border-bottom: 0; border-right: 1px solid var(--line); }
-  .new .shots .ph { bottom: -20px; width: 110px; }
-  .new h2 { font-size: 32px; }
-  .new ul { margin: 4px 0 0; padding-left: 20px; color: var(--muted); }
-  .new li + li { margin-top: 4px; }
-  .badge { align-self: start; padding: 4px 10px; border-radius: 999px; background: #f6c445; font: 800 12px/1.2 system-ui, sans-serif; letter-spacing: .06em; }
-  .round { margin-top: 56px; font-size: 22px; letter-spacing: -0.01em; }
-  .round + .intro { font-size: 16px; margin-top: 4px; }
-  .grid.old { margin-top: 20px; }
-  .mix { margin-top: 40px; padding: 24px 26px; border-radius: 18px; background: #fff3d6; border: 1px dashed #e7c77a; max-width: 760px; }
-  .mix h3 { font-size: 20px; }
-  .mix p { margin-top: 6px; color: #5a4a2e; }
-  footer { margin-top: 36px; color: var(--muted); font-size: 14px; }
-  @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } .new { grid-template-columns: 1fr; } .new .shots { min-height: 0; aspect-ratio: 16 / 11; border-right: 0; border-bottom: 1px solid var(--line); } }
-  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } main { padding-top: 36px; } }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 14px; color: var(--muted); }
+  .swatches { display: flex; gap: 6px; padding: 0; list-style: none; }
+  .swatches li { width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+  .btn { padding: 9px 16px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); border: 1px solid #d4d4d8; background: #fff; }
+  .btn.solid { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .btn:hover { border-color: var(--ink); }
+  .btn.solid:hover { background: #3f3f46; }
+  .btn:focus-visible, .shots:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+  .try { margin-top: 32px; padding: 24px 26px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+  .try h3 { font-size: 19px; letter-spacing: -0.01em; }
+  .try ul { margin-top: 10px; padding-left: 20px; color: var(--muted); display: grid; grid-template-columns: 1fr 1fr; gap: 6px 32px; }
+  .ask { margin-top: 24px; max-width: 44em; color: var(--muted); }
+  .ask b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .try ul { grid-template-columns: 1fr; }
+    main { padding: 36px 16px 56px; }
+  }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 <main>
-  <h1>Your portfolio mocks</h1>
-  <p class="intro">Small, hard-coded samples with real content and real numbers, so you can judge the feel. Open them full size, scroll, hover, click around.</p>
+  <h1>Three looks for your portfolio</h1>
+  <p class="intro">Each one keeps your current site’s layout, sections and words. Only the colors, fonts and card style change, so they’re easy to compare. Your current site is first, for reference.</p>
 
-  <article class="card new">
-    <a class="shots" href="4-cafe-v2.html"><img class="desk" src="thumbs/4-cafe-v2.webp" alt="Café Bold round 2 mock, desktop"><img class="ph" src="thumbs/4-cafe-v2-phone.webp" alt=""></a>
-    <div class="body">
-      <span class="badge">NEW · ROUND 2</span>
-      <span class="num">MOCK 1, ROUND 2</span>
-      <h2>Café Bold, as a real portfolio</h2>
-      <p class="feel"><b>Your favorite look, with a portfolio's structure.</b> Things to try:</p>
-      <ul>
-        <li>Drag the stickers around the code card</li>
-        <li>Press Ctrl K (or tap Menu on a phone)</li>
-        <li>Hover a project preview to play the demo</li>
-        <li>Click "Copy email" at the bottom for confetti</li>
-      </ul>
-      <div class="actions"><a class="btn solid" href="4-cafe-v2.html">Open full</a><a class="btn" href="phone.html?m=4-cafe-v2">Phone view</a></div>
-    </div>
-  </article>
-
-  <h2 class="round">Round 1</h2>
-  <p class="intro">The first three directions, kept for comparison.</p>
-  <div class="grid old">
-    <article class="card">
-      <a class="shots" href="1-cafe.html"><img class="desk" src="thumbs/1-cafe.webp" alt="Café Bold mock, desktop"><img class="ph" src="thumbs/1-cafe-phone.webp" alt=""></a>
+  <div class="grid">
+    <article class="card now">
+      <a class="shots" href="thumbs/0-current-full.webp"><img class="desk" src="thumbs/0-current.webp" alt="Current portfolio site, desktop"><img class="ph" src="thumbs/0-current-phone.webp" alt=""></a>
       <div class="body">
-        <span class="num">MOCK 1</span>
-        <h2>Café Bold</h2>
-        <p class="feel"><b>Your own Brew &amp; Bounce style.</b> Cream and cocoa, a chunky serif, coral and butter, tilted tags and offset shadows. Warm, confident, a bit loud.</p>
-        <div class="actions"><a class="btn solid" href="1-cafe.html">Open full</a><a class="btn" href="phone.html?m=1-cafe">Phone view</a></div>
+        <span class="label">What you have now</span>
+        <h2>Current site</h2>
+        <p class="feel">The first site, on the <code>main</code> branch. Cream, plum and gold, with Lumi in the hero.</p>
+        <div class="meta">
+          <ul class="swatches" aria-label="Colors"><li style="background:#fdf8ef" title="#fdf8ef"></li><li style="background:#241c45" title="#241c45"></li><li style="background:#f6cf6a" title="#f6cf6a"></li><li style="background:#8a5a00" title="#8a5a00"></li></ul>
+          <span>Fredoka + Nunito</span>
+        </div>
+        <div class="actions"><a class="btn" href="thumbs/0-current-full.webp">See the full page</a></div>
       </div>
     </article>
 
     <article class="card">
-      <a class="shots" href="2-scrapbook.html"><img class="desk" src="thumbs/2-scrapbook.webp" alt="Scrapbook mock, desktop"><img class="ph" src="thumbs/2-scrapbook-phone.webp" alt=""></a>
+      <a class="shots" href="5-classic.html"><img class="desk" src="thumbs/5-classic.webp" alt="Classic mock, desktop"><img class="ph" src="thumbs/5-classic-phone.webp" alt=""></a>
       <div class="body">
-        <span class="num">MOCK 2</span>
-        <h2>Scrapbook</h2>
-        <p class="feel"><b>The cutest one.</b> Name-tag sticker, taped polaroids, handwriting, a receipt of your achievements, a postcard to recruiters, and a cat in the corner you can tap.</p>
-        <div class="actions"><a class="btn solid" href="2-scrapbook.html">Open full</a><a class="btn" href="phone.html?m=2-scrapbook">Phone view</a></div>
+        <span class="label">Option A</span>
+        <h2>Classic, polished</h2>
+        <p class="feel">Your current colors and fonts, kept as they are. Your initials take the hero spot, Lumi moves down to Just for Fun, and the night theme gets a few twinkling stars. The closest to what you have.</p>
+        <div class="meta">
+          <ul class="swatches" aria-label="Colors"><li style="background:#fdf8ef" title="#fdf8ef"></li><li style="background:#241c45" title="#241c45"></li><li style="background:#f6cf6a" title="#f6cf6a"></li><li style="background:#8a5a00" title="#8a5a00"></li></ul>
+          <span>Fredoka + Nunito</span>
+        </div>
+        <div class="actions"><a class="btn solid" href="5-classic.html">Open full</a><a class="btn" href="phone.html?m=5-classic">Phone view</a></div>
       </div>
     </article>
 
     <article class="card">
-      <a class="shots" href="3-bento.html"><img class="desk" src="thumbs/3-bento.webp" alt="Pastel Bento mock, desktop"><img class="ph" src="thumbs/3-bento-phone.webp" alt=""></a>
+      <a class="shots" href="6-sky.html"><img class="desk" src="thumbs/6-sky.webp" alt="Clear Sky mock, desktop"><img class="ph" src="thumbs/6-sky-phone.webp" alt=""></a>
       <div class="body">
-        <span class="num">MOCK 3</span>
-        <h2>Pastel Bento</h2>
-        <p class="feel"><b>The cleanest one.</b> Everything on one screen in colorful tiles. Fastest for a recruiter to scan, with small playful touches like the waving hand and fanning phones.</p>
-        <div class="actions"><a class="btn solid" href="3-bento.html">Open full</a><a class="btn" href="phone.html?m=3-bento">Phone view</a></div>
+        <span class="label">Option B</span>
+        <h2>Clear Sky</h2>
+        <p class="feel">A pale blue-grey background, navy text, a clear blue accent and a touch of peach. White cards with soft shadows. Crisp and friendly.</p>
+        <div class="meta">
+          <ul class="swatches" aria-label="Colors"><li style="background:#f5f8fc" title="#f5f8fc"></li><li style="background:#10243f" title="#10243f"></li><li style="background:#2563eb" title="#2563eb"></li><li style="background:#ffb68f" title="#ffb68f"></li></ul>
+          <span>Outfit + Manrope</span>
+        </div>
+        <div class="actions"><a class="btn solid" href="6-sky.html">Open full</a><a class="btn" href="phone.html?m=6-sky">Phone view</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="shots" href="7-fern.html"><img class="desk" src="thumbs/7-fern.webp" alt="Fern mock, desktop"><img class="ph" src="thumbs/7-fern-phone.webp" alt=""></a>
+      <div class="body">
+        <span class="label">Option C</span>
+        <h2>Fern</h2>
+        <p class="feel">Off-white and deep green, flat tinted cards with no borders, and a soft highlighter under your name. Calm and quiet.</p>
+        <div class="meta">
+          <ul class="swatches" aria-label="Colors"><li style="background:#f5f7f3" title="#f5f7f3"></li><li style="background:#17271d" title="#17271d"></li><li style="background:#2b6a4b" title="#2b6a4b"></li><li style="background:#ebf1ea" title="#ebf1ea"></li></ul>
+          <span>Space Grotesk + Figtree</span>
+        </div>
+        <div class="actions"><a class="btn solid" href="7-fern.html">Open full</a><a class="btn" href="phone.html?m=7-fern">Phone view</a></div>
       </div>
     </article>
   </div>
 
-  <div class="mix">
-    <h3>Keep, drop or swap</h3>
-    <p>Tell me which touches in round 2 you love and which to drop, for example "keep the stickers and the timeline, lose the medals." Then I'll build the real site that way, keeping the case studies.</p>
-  </div>
+  <section class="try">
+    <h3>Small touches, the same in all three</h3>
+    <ul>
+      <li>The 👋 waves when the page loads and when you hover it</li>
+      <li>Hover a project preview to play its demo (tap play on a phone)</li>
+      <li>“Copy email” in Say hello copies it and shows a small note</li>
+      <li>The moon button, top right, switches to night mode</li>
+      <li>Sections fade in gently as you scroll</li>
+      <li>Lumi appears once, in Just for Fun</li>
+    </ul>
+  </section>
 
-  <footer>Hover effects show on desktop. Animations switch off if your device has reduced motion turned on.</footer>
+  <p class="ask"><b>Which one feels right?</b> Mixing is fine too, for example “Sky colors with the Classic fonts”. The mocks are hard-coded samples, so “Read the case study” only shows a note.</p>
 </main>
 </body>
 </html>
