@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pick a Mock</title>
+<style>
+  :root { --bg: #fbf6ee; --card: #fff; --ink: #221a14; --muted: #6d6158; --line: #eadfce; --coral: #e04e5a; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 56px 20px 80px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.03em; line-height: 1.1; }
+  .intro { margin-top: 12px; max-width: 46em; color: var(--muted); font-size: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; transition: translate .2s, box-shadow .2s; }
+  .card:hover { translate: 0 -4px; box-shadow: 0 20px 34px -22px rgb(0 0 0 / .35); }
+  .shots { position: relative; display: block; aspect-ratio: 16 / 11; overflow: hidden; background: #eee; border-bottom: 1px solid var(--line); }
+  .shots .desk { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .shots .ph { position: absolute; right: 14px; bottom: -40px; width: 92px; border-radius: 14px; border: 4px solid var(--ink); background: var(--ink); box-shadow: 0 10px 20px -8px rgb(0 0 0 / .5); }
+  .body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .num { font: 700 13px/1 ui-monospace, Consolas, monospace; color: var(--coral); letter-spacing: .08em; }
+  h2 { font-size: 26px; letter-spacing: -0.02em; line-height: 1.1; }
+  .feel { color: var(--muted); }
+  .feel b { color: var(--ink); font-weight: 600; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 8px; }
+  .btn { padding: 10px 16px; border-radius: 999px; font-weight: 700; text-decoration: none; color: var(--ink); border: 2px solid var(--ink); }
+  .btn.solid { background: var(--ink); color: #fff; }
+  .btn:hover { background: var(--coral); border-color: var(--coral); color: #fff; }
+  .mix { margin-top: 40px; padding: 24px 26px; border-radius: 18px; background: #fff3d6; border: 1px dashed #e7c77a; max-width: 760px; }
+  .mix h3 { font-size: 20px; }
+  .mix p { margin-top: 6px; color: #5a4a2e; }
+  footer { margin-top: 36px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } main { padding-top: 36px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Three directions for your portfolio</h1>
+  <p class="intro">Each one is a small, hard-coded sample with real content and real numbers, so you can judge the feel. Open each one full size, scroll, hover, click around. Then tell me which you like.</p>
+
+  <div class="grid">
+    <article class="card">
+      <a class="shots" href="1-cafe.html"><img class="desk" src="thumbs/1-cafe.webp" alt="Café Bold mock, desktop"><img class="ph" src="thumbs/1-cafe-phone.webp" alt=""></a>
+      <div class="body">
+        <span class="num">MOCK 1</span>
+        <h2>Café Bold</h2>
+        <p class="feel"><b>Your own Brew &amp; Bounce style.</b> Cream and cocoa, a chunky serif, coral and butter, tilted tags and offset shadows. Warm, confident, a bit loud.</p>
+        <div class="actions"><a class="btn solid" href="1-cafe.html">Open full</a><a class="btn" href="phone.html?m=1-cafe">Phone view</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="shots" href="2-scrapbook.html"><img class="desk" src="thumbs/2-scrapbook.webp" alt="Scrapbook mock, desktop"><img class="ph" src="thumbs/2-scrapbook-phone.webp" alt=""></a>
+      <div class="body">
+        <span class="num">MOCK 2</span>
+        <h2>Scrapbook</h2>
+        <p class="feel"><b>The cutest one.</b> Name-tag sticker, taped polaroids, handwriting, a receipt of your achievements, a postcard to recruiters, and a cat in the corner you can tap.</p>
+        <div class="actions"><a class="btn solid" href="2-scrapbook.html">Open full</a><a class="btn" href="phone.html?m=2-scrapbook">Phone view</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="shots" href="3-bento.html"><img class="desk" src="thumbs/3-bento.webp" alt="Pastel Bento mock, desktop"><img class="ph" src="thumbs/3-bento-phone.webp" alt=""></a>
+      <div class="body">
+        <span class="num">MOCK 3</span>
+        <h2>Pastel Bento</h2>
+        <p class="feel"><b>The cleanest one.</b> Everything on one screen in colorful tiles. Fastest for a recruiter to scan, with small playful touches like the waving hand and fanning phones.</p>
+        <div class="actions"><a class="btn solid" href="3-bento.html">Open full</a><a class="btn" href="phone.html?m=3-bento">Phone view</a></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="mix">
+    <h3>You can mix and match</h3>
+    <p>For example: "colors from 1, the receipt and cat from 2, layout from 3." Tell me what you love and what you don't, and I'll build the real site that way, keeping the videos and case studies.</p>
+  </div>
+
+  <footer>Hover effects show on desktop. Animations switch off if your device has reduced motion turned on.</footer>
+</main>
+</body>
+</html>

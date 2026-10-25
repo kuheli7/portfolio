@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone View</title>
+<style>
+  :root { --bg: #fbf6ee; --ink: #221a14; --muted: #6d6158; --coral: #e04e5a; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 18px 16px 30px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+  nav a { padding: 8px 14px; border-radius: 999px; text-decoration: none; font-weight: 700; color: var(--ink); border: 2px solid var(--ink); }
+  nav a.on { background: var(--ink); color: #fff; }
+  nav a.back { border-color: transparent; color: var(--muted); }
+  .device { margin-top: 18px; width: 414px; height: 868px; padding: 12px; border-radius: 52px; background: var(--ink); box-shadow: 0 30px 50px -24px rgb(0 0 0 / .5); transform-origin: top center; }
+  iframe { width: 390px; height: 844px; border: 0; border-radius: 40px; background: #fff; display: block; }
+</style>
+</head>
+<body>
+  <nav>
+    <a class="back" href="index.html">← All mocks</a>
+    <a href="?m=1-cafe" data-m="1-cafe">1 Café Bold</a>
+    <a href="?m=2-scrapbook" data-m="2-scrapbook">2 Scrapbook</a>
+    <a href="?m=3-bento" data-m="3-bento">3 Pastel Bento</a>
+  </nav>
+  <div class="device"><iframe title="Mock at phone size"></iframe></div>
+<script>
+  const allowed = ["1-cafe", "2-scrapbook", "3-bento"];
+  const m = new URLSearchParams(location.search).get("m");
+  const pick = allowed.includes(m) ? m : allowed[0];
+  document.querySelector("iframe").src = pick + ".html";
+  document.querySelector(`[data-m="${pick}"]`).classList.add("on");
+  // Shrink the phone to fit short windows.
+  const device = document.querySelector(".device");
+  const fit = () => {
+    const room = window.innerHeight - device.getBoundingClientRect().top - 20;
+    const s = Math.min(1, room / 868, (window.innerWidth - 32) / 414);
+    device.style.transform = `scale(${s})`;
+    device.style.marginBottom = `${(s - 1) * 868}px`;
+  };
+  fit();
+  addEventListener("resize", fit);
+</script>
+</body>
+</html>
