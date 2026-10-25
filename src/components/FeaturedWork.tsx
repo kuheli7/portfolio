@@ -11,7 +11,7 @@ export function FeaturedWork() {
         Four projects I can talk about for an hour each. Every number below comes with how it was measured, including
         the parts that aren’t finished yet.
       </SectionHeading>
-      <div className="grid gap-10">
+      <div data-reveal="children" className="grid gap-10">
         {caseStudies.map((project, i) => (
           <FeaturedCard key={project.slug} project={project} flip={i % 2 === 1} />
         ))}

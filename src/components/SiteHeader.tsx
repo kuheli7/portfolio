@@ -14,7 +14,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-6xl items-center gap-1 px-4 sm:gap-2 sm:px-6">
         <Link href="/" className="mr-auto flex items-center gap-2 rounded-full font-display text-lg font-semibold">
-          <Image src="/media/lumi.svg" alt="" width={34} height={34} />
+          <Image src="/media/lumi.svg" alt="" width={34} height={34} loading="eager" />
           Kuheli
         </Link>
         <ul className="flex items-center text-sm font-semibold">

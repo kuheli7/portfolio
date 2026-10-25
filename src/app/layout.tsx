@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Fredoka, Nunito } from "next/font/google";
+import { Caveat, Fredoka, Nunito } from "next/font/google";
+import { EasterEggs } from "@/components/EasterEggs";
+import { RevealObserver } from "@/components/RevealObserver";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
@@ -11,6 +13,12 @@ const fredoka = Fredoka({
 
 const nunito = Nunito({
   variable: "--font-nunito",
+  subsets: ["latin"],
+});
+
+// Handwriting, only for the little pen notes
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -50,7 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-theme="dark"
       suppressHydrationWarning
-      className={`${fredoka.variable} ${nunito.variable} h-full antialiased`}
+      className={`${fredoka.variable} ${nunito.variable} ${caveat.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
@@ -67,6 +75,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <RevealObserver />
+        <EasterEggs />
       </body>
     </html>
   );

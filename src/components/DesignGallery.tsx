@@ -4,12 +4,12 @@ import { CodeLink, LiveLink, SectionHeading } from "./ui";
 
 export function DesignGallery() {
   return (
-    <section aria-labelledby="design-title" className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section aria-labelledby="design-title" id="design" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
       <SectionHeading id="design-title" eyebrow="Design work" title="Websites for small food businesses">
         Mobile-first sites for three fictional brands, made to show local cafés and sweet shops what their own site
         could look like. Ordering hands off to WhatsApp, so there’s no backend and nothing to pay for.
       </SectionHeading>
-      <ul className="grid gap-8 md:grid-cols-3">
+      <ul data-reveal="children" className="grid gap-8 md:grid-cols-3">
         {designSites.map((site) => (
           <li key={site.name} className="flex flex-col">
             <div className="relative mb-8 mr-4">

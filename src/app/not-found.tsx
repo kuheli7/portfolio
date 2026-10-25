@@ -5,7 +5,7 @@ import { ArrowLeftIcon } from "@/components/icons";
 export default function NotFound() {
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center px-4 py-24 text-center sm:px-6">
-      <Image src="/media/lumi.svg" alt="" width={120} height={120} className="mb-6 size-28" />
+      <Image src="/media/lumi-curious.svg" alt="" width={160} height={160} className="mb-4 size-36" />
       <p className="font-display text-sm font-medium tracking-wider text-accent uppercase">404</p>
       <h1 className="mt-2 font-display text-4xl font-semibold">Lumi looked everywhere</h1>
       <p className="mt-3 text-lg text-muted">…and couldn’t find this page. It may have moved, or the link has a typo.</p>

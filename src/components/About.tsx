@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { SectionHeading } from "./ui";
 
 const skills = [
@@ -62,7 +63,7 @@ export function About() {
   return (
     <section aria-labelledby="about-title" id="about" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
       <SectionHeading id="about-title" eyebrow="About" title="From economics to software" />
-      <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+      <div data-reveal="" className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
         <div className="space-y-4 text-lg leading-relaxed text-muted">
           <p>
             I came to software from economics. After a B.A. and an M.A. in Economics at Visva-Bharati University, I
@@ -99,10 +100,13 @@ function Timeline({ title, entries }: { title: string; entries: Entry[] }) {
   return (
     <div>
       <h3 className="mb-3 font-display text-xl font-semibold">{title}</h3>
-      <ul className="space-y-3 border-l-2 border-line pl-5">
-        {entries.map((entry) => (
-          <li key={entry.title} className="relative">
-            <span aria-hidden="true" className="absolute top-2 -left-[1.6rem] size-2.5 rounded-full bg-accent-bg" />
+      <ul data-reveal="line" className="timeline relative space-y-3 pl-5">
+        {entries.map((entry, i) => (
+          <li key={entry.title} className="relative" style={{ "--i": i } as CSSProperties}>
+            <span
+              aria-hidden="true"
+              className="timeline-dot absolute top-2 -left-[1.5rem] size-2.5 rounded-full bg-accent-bg"
+            />
             <p className="font-semibold">{entry.title}</p>
             <p className="text-sm text-muted">
               {entry.place} · {entry.when}

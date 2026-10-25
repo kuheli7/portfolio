@@ -4,9 +4,9 @@ import { CodeLink, LiveLink, SectionHeading, TagList } from "./ui";
 
 export function MoreProjects() {
   return (
-    <section aria-labelledby="more-title" className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section aria-labelledby="more-title" id="more" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
       <SectionHeading id="more-title" eyebrow="More projects" title="Smaller builds, same care" />
-      <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <ul data-reveal="children" className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {smallProjects.map((project) => (
           <ProjectCard key={project.name} project={project} />
         ))}

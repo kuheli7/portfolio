@@ -3,8 +3,11 @@ import { LiveLink } from "./ui";
 
 export function JustForFun() {
   return (
-    <section aria-labelledby="fun-title" className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-[linear-gradient(160deg,#2c2358,#1b1535)] p-5 text-[#fef7ed] sm:p-8 lg:grid-cols-[1.3fr_1fr]">
+    <section aria-labelledby="fun-title" id="fun" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
+      <div
+        data-reveal=""
+        className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-[linear-gradient(160deg,#2c2358,#1b1535)] p-5 text-[#fef7ed] sm:p-8 lg:grid-cols-[1.3fr_1fr]"
+      >
         <Image
           src="/media/lumi-night-shift.webp"
           alt="Lumi’s Night Shift: the tiny moth who starts a new hobby every night"

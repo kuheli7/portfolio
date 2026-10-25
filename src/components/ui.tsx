@@ -3,7 +3,7 @@ import { ExternalIcon, GitHubIcon } from "./icons";
 
 export function SectionHeading({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children?: ReactNode }) {
   return (
-    <div className="mb-10 max-w-3xl">
+    <div data-reveal="" className="mb-10 max-w-3xl">
       <p className="mb-2 font-display text-sm font-medium tracking-wider text-accent uppercase">{eyebrow}</p>
       <h2 id={id} className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
         {title}
