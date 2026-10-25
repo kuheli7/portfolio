@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 const steps = [
   { title: "You say", body: "“open the cheapest one”" },
   { title: "Rules parser", body: "Common phrases, handled instantly with no AI" },
@@ -8,25 +10,21 @@ const steps = [
 ];
 
 // Stands in for a screenshot: real-site captures show personal account details.
+// The steps appear one after another, in the order a command travels through them.
 export function VoiceNavPipeline() {
   return (
-    <figure className="bg-[linear-gradient(160deg,#2c2358,#1b1535)] p-5 text-[#fef7ed] sm:p-6">
-      <figcaption className="mb-4 font-display text-sm tracking-wide text-[#f6cf6a] uppercase">
-        How a command travels
+    <figure className="rounded-3xl bg-surface p-4 ring-1 ring-line sm:p-8">
+      <figcaption className="mb-5 text-center text-sm font-semibold text-muted sm:text-base">
+        How a spoken command travels
       </figcaption>
-      <ol className="grid gap-2.5 sm:grid-cols-2">
+      <ol data-reveal="children" className="grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-3">
         {steps.map((step, i) => (
-          <li key={step.title} className="flex gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
-            <span
-              aria-hidden="true"
-              className="grid size-7 shrink-0 place-items-center rounded-full bg-[#f6cf6a] font-display text-sm font-semibold text-[#1b1535]"
-            >
-              {i + 1}
+          <li key={step.title} style={{ "--i": i } as CSSProperties} className="rounded-2xl bg-surface-2 p-4 sm:p-5">
+            <span aria-hidden="true" className="text-gradient grad-pink text-2xl font-semibold tracking-tight">
+              {String(i + 1).padStart(2, "0")}
             </span>
-            <span>
-              <span className="block font-semibold">{step.title}</span>
-              <span className="block text-sm text-[#d9d0ee]">{step.body}</span>
-            </span>
+            <span className="mt-2 block font-semibold">{step.title}</span>
+            <span className="mt-1 block text-sm leading-relaxed text-muted">{step.body}</span>
           </li>
         ))}
       </ol>

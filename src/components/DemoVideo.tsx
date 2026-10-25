@@ -45,7 +45,7 @@ export function DemoVideo({ src, poster, width, height, label }: Props) {
   }
 
   return (
-    <div className="group relative">
+    <div className="relative">
       <video
         ref={ref}
         poster={poster}
@@ -66,7 +66,7 @@ export function DemoVideo({ src, poster, width, height, label }: Props) {
         type="button"
         onClick={toggle}
         aria-label={playing ? "Pause demo" : "Play demo"}
-        className="absolute right-3 bottom-3 grid size-10 place-items-center rounded-full bg-[#1b1535]/80 text-[#fef7ed] shadow-lg backdrop-blur transition-opacity hover:bg-[#1b1535]"
+        className="absolute right-3 bottom-3 grid size-9 place-items-center rounded-full bg-black/55 text-sm text-white backdrop-blur-md transition-colors hover:bg-black/75"
       >
         {playing ? <PauseIcon /> : <PlayIcon />}
       </button>

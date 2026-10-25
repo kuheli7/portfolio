@@ -1,15 +1,18 @@
 export type Stat = { value: string; label: string };
 
-export type Media =
-  | { kind: "image"; src: string; width: number; height: number; alt: string }
-  | { kind: "video"; src: string; poster: string; width: number; height: number; label: string }
-  | { kind: "voicenav" };
+export type Video = { kind: "video"; src: string; poster: string; width: number; height: number; label: string };
+
+export type Media = Video | { kind: "voicenav" };
+
+// Each featured project gets its own gradient (defined in globals.css as .grad-*).
+export type Accent = "amber" | "pink" | "blue" | "green";
 
 export type CaseStudy = {
   slug: string;
   name: string;
   kind: string;
   period: string;
+  accent: Accent;
   tagline: string;
   summary: string;
   stats: Stat[];
@@ -35,7 +38,7 @@ export type SmallProject = {
   code: string;
   live?: string;
   liveNote?: string;
-  media?: Extract<Media, { kind: "video" }>;
+  media?: Video;
 };
 
 export type DesignSite = {
@@ -44,8 +47,8 @@ export type DesignSite = {
   summary: string;
   live: string;
   code: string;
-  desktop: { src: string; width: number; height: number };
-  mobile: { src: string; width: number; height: number };
+  video: Video;
+  screenshot: { src: string; width: number; height: number };
 };
 
 const RENDER_NOTE = "Hosted on a free Render instance, so the first load can take about 30 seconds.";
@@ -56,6 +59,7 @@ export const caseStudies: CaseStudy[] = [
     name: "CostLens",
     kind: "Cloud · AWS cost analysis",
     period: "Oct 2026 – present",
+    accent: "amber",
     tagline: "Explains why an AWS bill changed, down to the resource and the CloudTrail event.",
     summary:
       "Every morning it finds the service, resource and CloudTrail event behind a cost change and explains it in plain English on Slack. A deterministic engine computes every number; the LLM only writes sentences, and a validator rejects anything it invents.",
@@ -68,11 +72,12 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Python", "FastAPI", "AWS Lambda", "EventBridge", "CloudTrail", "React", "Slack", "Hypothesis"],
     code: "https://github.com/kuheli7/costLens",
     media: {
-      kind: "image",
-      src: "/media/costlens.webp",
+      kind: "video",
+      src: "/media/costlens.mp4",
+      poster: "/media/costlens-poster.webp",
       width: 1280,
       height: 800,
-      alt: "The CostLens dashboard, running on synthetic demo data, showing a daily cost change broken down by cause",
+      label: "CostLens dashboard demo on synthetic data: hovering the daily spend chart, then reading why spend changed and the waste it found",
     },
     problem:
       "AWS Cost Explorer can tell you that EC2 went up. It can't tell you which instance, who launched it, or whether you're paying for more hours or a higher price per hour. CostLens answers that every morning, read-only, inside your own AWS account, and lists idle resources with the money they waste.",
@@ -116,6 +121,7 @@ export const caseStudies: CaseStudy[] = [
     name: "VoiceNav",
     kind: "Accessibility · Browser extension + local AI",
     period: "Oct 2026 – present",
+    accent: "pink",
     tagline: "Hands-free browsing by voice: say “open the cheapest one” and it clicks the right link.",
     summary:
       "A Chrome and Edge extension for people who can’t easily use a mouse or keyboard. Rules handle the common phrases, code does the counting, and a small local LLM picks only from the labels actually on the page. No cloud, no API cost.",
@@ -169,6 +175,7 @@ export const caseStudies: CaseStudy[] = [
     name: "CreditLens",
     kind: "Data and ML · Credit risk",
     period: "Sep 2026",
+    accent: "blue",
     tagline: "Credit risk scoring that shows its reasons, with readable policy rules and plain-English questions.",
     summary:
       "A LightGBM model scores loan applicants from the Home Credit dataset, SHAP explains each decision, and a natural-language tool turns questions about the portfolio into checked SQL. FastAPI backend, plain JavaScript front end, shipped in Docker.",
@@ -225,6 +232,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Policy Tree Editor",
     kind: "Frontend · Visual editor",
     period: "Oct 2026",
+    accent: "green",
     tagline: "A drag-and-drop editor for compliance policy trees that won’t let you build a broken one.",
     summary:
       "Compliance officers build rule trees (root, rule, condition, action) on a canvas, edit properties in a slide-over inspector, validate, auto-layout and import or export JSON. Strict TypeScript, React Flow, and one Zustand store that enforces the tree rules.",
@@ -301,6 +309,14 @@ export const smallProjects: SmallProject[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts"],
     code: "https://github.com/kuheli7/sales-pulse",
     live: "https://sales-pulse-dash-board.vercel.app/dashboard",
+    media: {
+      kind: "video",
+      src: "/media/salespulse.mp4",
+      poster: "/media/salespulse-poster.webp",
+      width: 1280,
+      height: 800,
+      label: "Sales Pulse demo: hovering the monthly and country charts for exact figures, then switching to the light theme",
+    },
   },
   {
     name: "HubSpot Deals ETL",
@@ -338,8 +354,15 @@ export const designSites: DesignSite[] = [
     summary: "A sweet shop site where customers build a festive dabba (gift box) and send the order on WhatsApp.",
     live: "https://gulab-and-co-sweet.vercel.app",
     code: "https://github.com/kuheli7/Gulab-and-Co",
-    desktop: { src: "/media/gulab-desktop.webp", width: 1200, height: 633 },
-    mobile: { src: "/media/gulab-mobile.webp", width: 520, height: 1125 },
+    video: {
+      kind: "video",
+      src: "/media/gulab-scroll.mp4",
+      poster: "/media/gulab-scroll-poster.webp",
+      width: 480,
+      height: 1039,
+      label: "Gulab & Co. on a phone: scrolling from the hero to the sweets counter, the gift dabbas and why customers trust the shop",
+    },
+    screenshot: { src: "/media/gulab-mobile.webp", width: 520, height: 1125 },
   },
   {
     name: "Sip & Sage",
@@ -347,8 +370,15 @@ export const designSites: DesignSite[] = [
     summary: "A calm, photo-led café menu with a cart, per-table QR codes and a dark or light theme.",
     live: "https://sip-and-sage-cafe.vercel.app",
     code: "https://github.com/kuheli7/sip-and-sage-cafe",
-    desktop: { src: "/media/sip-desktop.webp", width: 1200, height: 750 },
-    mobile: { src: "/media/sip-mobile.webp", width: 520, height: 1125 },
+    video: {
+      kind: "video",
+      src: "/media/sip-scroll.mp4",
+      poster: "/media/sip-scroll-poster.webp",
+      width: 480,
+      height: 1039,
+      label: "Sip & Sage on a phone: scrolling the house favourites, then the coffee, breakfast and dessert menus",
+    },
+    screenshot: { src: "/media/sip-mobile.webp", width: 520, height: 1125 },
   },
   {
     name: "Brew & Bounce",
@@ -356,8 +386,15 @@ export const designSites: DesignSite[] = [
     summary: "A playful café with chunky shadows, coupons and a WhatsApp hand-off that types out the whole order.",
     live: "https://brew-and-bounce.vercel.app",
     code: "https://github.com/kuheli7/brew-and-bounce",
-    desktop: { src: "/media/brew-desktop.webp", width: 1200, height: 750 },
-    mobile: { src: "/media/brew-mobile.webp", width: 520, height: 1101 },
+    video: {
+      kind: "video",
+      src: "/media/brew-scroll.mp4",
+      poster: "/media/brew-scroll-poster.webp",
+      width: 480,
+      height: 1039,
+      label: "Brew & Bounce on a phone: filtering the menu to coffee, then scrolling through the café’s vibe and reviews",
+    },
+    screenshot: { src: "/media/brew-mobile.webp", width: 520, height: 1101 },
   },
 ];
 

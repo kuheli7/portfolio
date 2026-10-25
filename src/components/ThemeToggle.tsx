@@ -11,14 +11,14 @@ function subscribe(onChange: () => void) {
   return () => observer.disconnect();
 }
 
-const isLight = () => document.documentElement.dataset.theme === "light";
-const isLightOnServer = () => false;
+const isDark = () => document.documentElement.dataset.theme === "dark";
+const isDarkOnServer = () => false;
 
 export function ThemeToggle() {
-  const light = useSyncExternalStore(subscribe, isLight, isLightOnServer);
+  const dark = useSyncExternalStore(subscribe, isDark, isDarkOnServer);
 
   function toggle() {
-    const next = isLight() ? "dark" : "light";
+    const next = isDark() ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try {
       localStorage.setItem("theme", next);
@@ -31,14 +31,14 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label="Light theme"
-      aria-pressed={light}
+      aria-label="Dark theme"
+      aria-pressed={dark}
       title="Switch light and dark theme"
-      className="grid size-10 place-items-center rounded-full text-lg text-muted transition-colors hover:bg-surface hover:text-fg"
+      className="grid size-9 place-items-center rounded-full text-base text-fg/80 transition-colors hover:bg-surface hover:text-fg"
     >
       {/* Icons swap with CSS so the first paint is right even before React hydrates. */}
-      <MoonIcon className="light:hidden" />
-      <SunIcon className="hidden light:block" />
+      <MoonIcon className="dark:hidden" />
+      <SunIcon className="hidden dark:block" />
     </button>
   );
 }

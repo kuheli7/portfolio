@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { SectionHeading } from "./ui";
 
 const skills = [
@@ -58,51 +59,75 @@ const leadership: Entry[] = [
   { title: "Event Coordinator, Alumni Meet", place: "Visva-Bharati University", when: "2024" },
 ];
 
+const statement =
+  "Economics still shows up in what I build: cost attribution, credit risk, sales data, and a habit of checking that the numbers actually add up.";
+
 export function About() {
   return (
-    <section aria-labelledby="about-title" id="about" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
-      <SectionHeading id="about-title" eyebrow="About" title="From economics to software" />
-      <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
-        <div className="space-y-4 text-lg leading-relaxed text-muted">
-          <p>
-            I came to software from economics. After a B.A. and an M.A. in Economics at Visva-Bharati University, I
-            moved to an MCA at CHRIST University in Bengaluru, where I’m now in my final year.
-          </p>
-          <p>
-            Economics still shows up in what I build: cost attribution, credit risk, sales data, and a habit of
-            checking that the numbers actually add up. The rest of the time I’m making small things a little more fun,
-            which is how Lumi happened.
-          </p>
-          <h3 className="pt-4 font-display text-xl font-semibold text-fg">Tools I use</h3>
-          <dl className="grid gap-3 text-base sm:grid-cols-2">
-            {skills.map((skill) => (
-              <div key={skill.group} className="rounded-2xl border border-line bg-surface/50 p-4">
-                <dt className="font-semibold text-fg">{skill.group}</dt>
-                <dd className="mt-1 text-sm">{skill.items}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <div className="space-y-8">
-          <Timeline title="Experience" entries={experience} />
-          <Timeline title="Education" entries={education} />
-          <Timeline title="Awards" entries={awards} />
-          <Timeline title="Certifications" entries={certifications} />
-          <Timeline title="Leadership" entries={leadership} />
-        </div>
+    <section aria-labelledby="about-title" id="about" className="px-4 py-24 sm:px-6 sm:py-32">
+      <SectionHeading id="about-title" title="From economics to software." />
+      <div className="mx-auto max-w-4xl">
+        <WordReveal text={statement} />
+        <p data-reveal className="mt-8 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+          After a B.A. and an M.A. in Economics at Visva-Bharati University, I moved to an MCA at CHRIST University in
+          Bengaluru, where I’m now in my final year.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-20 max-w-6xl sm:mt-28">
+        <h3 data-reveal className="text-center text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+          Tools I use.
+        </h3>
+        <dl data-reveal="children" className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {skills.map((skill, i) => (
+            <div key={skill.group} style={{ "--i": i % 3 } as CSSProperties} className="rounded-3xl bg-bg-alt p-6">
+              <dt className="text-lg font-semibold">{skill.group}</dt>
+              <dd className="mt-1 leading-relaxed text-muted">{skill.items}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      {/* Masonry columns, so the short lists fill in beside the long ones. */}
+      <div className="mx-auto mt-5 max-w-6xl gap-5 md:columns-2">
+        <Timeline title="Experience" entries={experience} />
+        <Timeline title="Education" entries={education} />
+        <Timeline title="Awards" entries={awards} />
+        <Timeline title="Certifications" entries={certifications} />
+        <Timeline title="Leadership" entries={leadership} />
       </div>
     </section>
   );
 }
 
+// A statement whose words brighten in turn as it scrolls up (.word-reveal in globals.css).
+// Screen readers get the sentence in one piece; the per-word spans are visual only.
+function WordReveal({ text }: { text: string }) {
+  const words = text.split(" ");
+  return (
+    <p className="word-reveal text-3xl leading-tight font-semibold tracking-[-0.02em] sm:text-5xl">
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {words.map((word, i) => {
+          const from = 10 + (32 * i) / words.length;
+          return (
+            <span key={i} className="word" style={{ "--from": `${from}%`, "--to": `${from + 8}%` } as CSSProperties}>
+              {word}{" "}
+            </span>
+          );
+        })}
+      </span>
+    </p>
+  );
+}
+
 function Timeline({ title, entries }: { title: string; entries: Entry[] }) {
   return (
-    <div>
-      <h3 className="mb-3 font-display text-xl font-semibold">{title}</h3>
-      <ul className="space-y-3 border-l-2 border-line pl-5">
+    <div data-reveal className="mb-5 break-inside-avoid rounded-3xl bg-bg-alt p-6 sm:p-8">
+      <h3 className="text-2xl font-semibold tracking-tight">{title}</h3>
+      <ul className="mt-4 divide-y divide-line">
         {entries.map((entry) => (
-          <li key={entry.title} className="relative">
-            <span aria-hidden="true" className="absolute top-2 -left-[1.6rem] size-2.5 rounded-full bg-accent-bg" />
+          <li key={entry.title} className="py-3 first:pt-0 last:pb-0">
             <p className="font-semibold">{entry.title}</p>
             <p className="text-sm text-muted">
               {entry.place} · {entry.when}

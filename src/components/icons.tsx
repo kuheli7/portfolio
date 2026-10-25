@@ -47,49 +47,18 @@ export function MailIcon(props: IconProps) {
   );
 }
 
-export function FileIcon(props: IconProps) {
+export function ChevronRightIcon(props: IconProps) {
   return (
     <Stroke {...props}>
-      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-      <path d="M16 13H8" />
-      <path d="M16 17H8" />
+      <path d="m9 18 6-6-6-6" />
     </Stroke>
   );
 }
 
-export function ArrowRightIcon(props: IconProps) {
+export function ChevronLeftIcon(props: IconProps) {
   return (
     <Stroke {...props}>
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </Stroke>
-  );
-}
-
-export function ArrowLeftIcon(props: IconProps) {
-  return (
-    <Stroke {...props}>
-      <path d="m12 19-7-7 7-7" />
-      <path d="M19 12H5" />
-    </Stroke>
-  );
-}
-
-export function ArrowDownIcon(props: IconProps) {
-  return (
-    <Stroke {...props}>
-      <path d="M12 5v14" />
-      <path d="m19 12-7 7-7-7" />
-    </Stroke>
-  );
-}
-
-export function ExternalIcon(props: IconProps) {
-  return (
-    <Stroke {...props}>
-      <path d="M7 7h10v10" />
-      <path d="M7 17 17 7" />
+      <path d="m15 18-6-6 6-6" />
     </Stroke>
   );
 }
