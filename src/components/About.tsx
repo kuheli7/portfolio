@@ -37,7 +37,7 @@ const education: Entry[] = [
 ];
 
 const awards: Entry[] = [
-  { title: "2nd place, UI/UX Design Competition", place: "Revelations 2026", when: "2026" },
+  { title: "2nd place, UI/UX Design Competition", place: "Revelations", when: "2026" },
   {
     title: "3rd place, Coding and Debugging Competition",
     place: "SHELLS 2026, Kristu Jayanti (Deemed to be University)",
