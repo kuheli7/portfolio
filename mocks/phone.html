@@ -19,13 +19,14 @@
 <body>
   <nav>
     <a class="back" href="index.html">← All mocks</a>
+    <a href="?m=4-cafe-v2" data-m="4-cafe-v2">Round 2</a>
     <a href="?m=1-cafe" data-m="1-cafe">1 Café Bold</a>
     <a href="?m=2-scrapbook" data-m="2-scrapbook">2 Scrapbook</a>
     <a href="?m=3-bento" data-m="3-bento">3 Pastel Bento</a>
   </nav>
   <div class="device"><iframe title="Mock at phone size"></iframe></div>
 <script>
-  const allowed = ["1-cafe", "2-scrapbook", "3-bento"];
+  const allowed = ["4-cafe-v2", "1-cafe", "2-scrapbook", "3-bento"];
   const m = new URLSearchParams(location.search).get("m");
   const pick = allowed.includes(m) ? m : allowed[0];
   document.querySelector("iframe").src = pick + ".html";

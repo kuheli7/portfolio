@@ -26,21 +26,50 @@
   .btn { padding: 10px 16px; border-radius: 999px; font-weight: 700; text-decoration: none; color: var(--ink); border: 2px solid var(--ink); }
   .btn.solid { background: var(--ink); color: #fff; }
   .btn:hover { background: var(--coral); border-color: var(--coral); color: #fff; }
+  .new { display: grid; grid-template-columns: 1.4fr 1fr; margin-top: 36px; border: 2px solid var(--ink); box-shadow: 8px 8px 0 #f6c445; }
+  .new .shots { aspect-ratio: auto; height: 100%; min-height: 320px; border-bottom: 0; border-right: 1px solid var(--line); }
+  .new .shots .ph { bottom: -20px; width: 110px; }
+  .new h2 { font-size: 32px; }
+  .new ul { margin: 4px 0 0; padding-left: 20px; color: var(--muted); }
+  .new li + li { margin-top: 4px; }
+  .badge { align-self: start; padding: 4px 10px; border-radius: 999px; background: #f6c445; font: 800 12px/1.2 system-ui, sans-serif; letter-spacing: .06em; }
+  .round { margin-top: 56px; font-size: 22px; letter-spacing: -0.01em; }
+  .round + .intro { font-size: 16px; margin-top: 4px; }
+  .grid.old { margin-top: 20px; }
   .mix { margin-top: 40px; padding: 24px 26px; border-radius: 18px; background: #fff3d6; border: 1px dashed #e7c77a; max-width: 760px; }
   .mix h3 { font-size: 20px; }
   .mix p { margin-top: 6px; color: #5a4a2e; }
   footer { margin-top: 36px; color: var(--muted); font-size: 14px; }
-  @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } .new { grid-template-columns: 1fr; } .new .shots { min-height: 0; aspect-ratio: 16 / 11; border-right: 0; border-bottom: 1px solid var(--line); } }
   @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } main { padding-top: 36px; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 <main>
-  <h1>Three directions for your portfolio</h1>
-  <p class="intro">Each one is a small, hard-coded sample with real content and real numbers, so you can judge the feel. Open each one full size, scroll, hover, click around. Then tell me which you like.</p>
+  <h1>Your portfolio mocks</h1>
+  <p class="intro">Small, hard-coded samples with real content and real numbers, so you can judge the feel. Open them full size, scroll, hover, click around.</p>
 
-  <div class="grid">
+  <article class="card new">
+    <a class="shots" href="4-cafe-v2.html"><img class="desk" src="thumbs/4-cafe-v2.webp" alt="Café Bold round 2 mock, desktop"><img class="ph" src="thumbs/4-cafe-v2-phone.webp" alt=""></a>
+    <div class="body">
+      <span class="badge">NEW · ROUND 2</span>
+      <span class="num">MOCK 1, ROUND 2</span>
+      <h2>Café Bold, as a real portfolio</h2>
+      <p class="feel"><b>Your favorite look, with a portfolio's structure.</b> Things to try:</p>
+      <ul>
+        <li>Drag the stickers around the code card</li>
+        <li>Press Ctrl K (or tap Menu on a phone)</li>
+        <li>Hover a project preview to play the demo</li>
+        <li>Click "Copy email" at the bottom for confetti</li>
+      </ul>
+      <div class="actions"><a class="btn solid" href="4-cafe-v2.html">Open full</a><a class="btn" href="phone.html?m=4-cafe-v2">Phone view</a></div>
+    </div>
+  </article>
+
+  <h2 class="round">Round 1</h2>
+  <p class="intro">The first three directions, kept for comparison.</p>
+  <div class="grid old">
     <article class="card">
       <a class="shots" href="1-cafe.html"><img class="desk" src="thumbs/1-cafe.webp" alt="Café Bold mock, desktop"><img class="ph" src="thumbs/1-cafe-phone.webp" alt=""></a>
       <div class="body">
@@ -73,8 +102,8 @@
   </div>
 
   <div class="mix">
-    <h3>You can mix and match</h3>
-    <p>For example: "colors from 1, the receipt and cat from 2, layout from 3." Tell me what you love and what you don't, and I'll build the real site that way, keeping the videos and case studies.</p>
+    <h3>Keep, drop or swap</h3>
+    <p>Tell me which touches in round 2 you love and which to drop, for example "keep the stickers and the timeline, lose the medals." Then I'll build the real site that way, keeping the case studies.</p>
   </div>
 
   <footer>Hover effects show on desktop. Animations switch off if your device has reduced motion turned on.</footer>
