@@ -14,7 +14,13 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
+// Social preview images need absolute URLs. Vercel sets the production domain; locally it's the dev server.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Kuheli Begum · Software developer",
     template: "%s · Kuheli Begum",

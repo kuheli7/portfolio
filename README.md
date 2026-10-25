@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kuheli Begum · Portfolio
 
-## Getting Started
+My personal site: the projects I've built, how each one works, and how to reach me. Lumi, the small moth from
+my hackathon project, keeps watch in the corner.
 
-First, run the development server:
+![Preview of the portfolio](src/app/opengraph-image.png)
+
+## What's on it
+
+- **Featured work:** CostLens, VoiceNav, CreditLens and Policy Tree Editor, each with its own case-study page
+  (problem, approach, results and limits).
+- **More projects:** MindCare, Sales Pulse, HubSpot Deals ETL, Highway Delite and DSA Revision Tracker.
+- **Design work:** three mobile-first sites for small food businesses (Gulab & Co., Sip & Sage, Brew & Bounce).
+- **Just for fun:** Lumi's Night Shift.
+- About, education, awards, and contact links.
+
+## Built with
+
+- [Next.js 16](https://nextjs.org) (App Router, static prerendering) and TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com)
+- Fredoka and Nunito through `next/font`
+
+## Details
+
+- **Two themes.** Night is the default and there is a light theme toggle. A small inline script applies a saved
+  choice before the first paint, so the page doesn't flash.
+- **Demo videos** are short, muted, compressed MP4s. They only play while on screen, never play when the
+  system asks for reduced motion, and stay paused once you pause them.
+- **Accessibility:** a skip link, visible focus rings, labelled controls, and colour pairs that meet WCAG AA
+  contrast in both themes.
+- **Content lives in data files**, so updating the site rarely means touching a component:
+  - `src/data/profile.ts`: name, email and social links
+  - `src/data/projects.ts`: case studies, smaller projects and design sites
+
+## Run it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint    # ESLint
+npm run build   # production build
+npm start       # serve the production build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project layout
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/                 routes, layout, global styles, icons and the social preview image
+    projects/[slug]/   case-study pages
+  components/          page sections and shared UI
+  data/                profile and project content
+public/
+  media/               screenshots, demo videos and Lumi
+  resume/              resume PDF
+```
