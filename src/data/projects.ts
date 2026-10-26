@@ -19,6 +19,8 @@ export type CaseStudy = {
   code: string;
   live?: string;
   liveNote?: string;
+  // A free Render service to wake when the homepage opens, so the demo is warm by the time it is clicked
+  warm?: string;
   media: Media;
   problem: string;
   approach: { title: string; body: string }[];
@@ -35,6 +37,8 @@ export type SmallProject = {
   code: string;
   live?: string;
   liveNote?: string;
+  // A free Render service to wake when the homepage opens, so the demo is warm by the time it is clicked
+  warm?: string;
   media?: Extract<Media, { kind: "video" }>;
 };
 
@@ -183,6 +187,7 @@ export const caseStudies: CaseStudy[] = [
     code: "https://github.com/kuheli7/credit-risk-platform",
     live: "https://creditlens-credit-risk-platform.onrender.com/?page=scoring",
     liveNote: RENDER_NOTE,
+    warm: "https://creditlens-credit-risk-platform.onrender.com/",
     media: {
       kind: "video",
       src: "/media/creditlens.mp4",
@@ -321,6 +326,7 @@ export const smallProjects: SmallProject[] = [
     code: "https://github.com/kuheli7/travel-booking-app",
     live: "https://travel-booking-app-1-qe62.onrender.com",
     liveNote: RENDER_NOTE,
+    warm: "https://travel-booking-app-1-qe62.onrender.com/",
   },
   {
     name: "DSA Revision Tracker",
@@ -330,6 +336,7 @@ export const smallProjects: SmallProject[] = [
     code: "https://github.com/kuheli7/DSA-Revision-Tracker",
     live: "https://dsa-revision-tracker-gamma.vercel.app",
     liveNote: "The backend is on a free Render instance, so the first request can take about 30 seconds.",
+    warm: "https://dsa-revision-tracker-8j5l.onrender.com/",
   },
 ];
 
@@ -362,6 +369,8 @@ export const designSites: DesignSite[] = [
     scroll: "/media/brew-scroll.webp",
   },
 ];
+
+export const warmUrls = [...caseStudies, ...smallProjects].flatMap((project) => (project.warm ? [project.warm] : []));
 
 export function getCaseStudy(slug: string) {
   return caseStudies.find((project) => project.slug === slug);

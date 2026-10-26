@@ -6,6 +6,8 @@ import { FeaturedWork } from "@/components/FeaturedWork";
 import { Hero } from "@/components/Hero";
 import { JustForFun } from "@/components/JustForFun";
 import { MoreProjects } from "@/components/MoreProjects";
+import { WarmUp } from "@/components/WarmUp";
+import { warmUrls } from "@/data/projects";
 
 export default function Home() {
   return (
@@ -18,6 +20,7 @@ export default function Home() {
       <About />
       <Contact />
       <ActiveCards />
+      <WarmUp urls={warmUrls} />
     </>
   );
 }
