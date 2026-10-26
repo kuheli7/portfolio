@@ -33,6 +33,8 @@ type Wrong = { id: number; a: number; b: number };
 type Drag = { from: number; fresh: boolean; moved: boolean; x: number; y: number };
 type SkyPoint = Star & { unit: number };
 
+// "the music note", but just "Lumi’s lantern"
+const inSentence = (name: string) => (name.startsWith("Lumi") ? name : `the ${name.toLowerCase()}`);
 const pairKey = (a: number, b: number) => (a < b ? `${a}-${b}` : `${b}-${a}`);
 
 export function Constellations() {
@@ -167,7 +169,7 @@ export function Constellations() {
     if (shape && next.length === shape.lines.length) {
       setAnchor(null);
       setDone((d) => (d.includes(shape.key) ? d : [...d, shape.key]));
-      setMessage(`You made the ${shape.name.toLowerCase()}! ${shape.fact}`);
+      setMessage(`You made ${inSentence(shape.name)}! ${shape.fact}`);
       if (sound) [0, 2, 4, 5].forEach((n, k) => ping(NOTES[n + 2], 0.25 + k * 0.12));
       return;
     }
@@ -521,7 +523,7 @@ export function Constellations() {
         <div className="star-done mt-5 flex items-center gap-4 rounded-2xl border border-line bg-surface-2/70 p-4">
           <Image src="/media/lumi-starry.svg" alt="" width={80} height={80} className="star-pop size-16 shrink-0 sm:size-20" />
           <div>
-            <p className="font-display text-lg font-semibold">You made the {shape.name.toLowerCase()}!</p>
+            <p className="font-display text-lg font-semibold">You made {inSentence(shape.name)}!</p>
             <p className="mt-0.5 text-muted">{shape.fact}</p>
             <button
               type="button"
