@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Constellations } from "@/components/Constellations";
 import { ArrowLeftIcon, ArrowRightIcon, MicIcon } from "@/components/icons";
 import { VoiceDemoButton } from "@/components/VoiceDemo";
 
 export const metadata: Metadata = {
-  title: "Play",
+  title: "Voice demo",
   description:
-    "Small things to play with on Kuheli Begum’s site: join stars into pictures, and steer the site by voice with a mini VoiceNav.",
+    "Steer Kuheli Begum’s site with your voice: a mini version of VoiceNav, her browser extension.",
 };
 
 const tryThese = [
@@ -28,22 +27,12 @@ export default function PlayPage() {
         <ArrowLeftIcon /> Back to the homepage
       </Link>
       <header className="max-w-3xl">
-        <p className="mb-2 font-display text-sm font-medium tracking-wider text-accent uppercase">Play</p>
-        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">A few things to poke at</h1>
-        <p className="mt-4 text-lg leading-relaxed text-muted">Small experiments from my projects. Press anything.</p>
+        <p className="mb-2 font-display text-sm font-medium tracking-wider text-accent uppercase">Voice demo</p>
+        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Try VoiceNav on this site</h1>
+        <p className="mt-4 text-lg leading-relaxed text-muted">
+          A small version of my browser extension, working on this very page. Say what you want, or type it.
+        </p>
       </header>
-
-      <section aria-labelledby="sky-title" className="mt-12 rounded-3xl border border-line bg-surface/50 p-5 sm:p-8">
-        <div className="max-w-3xl">
-          <h2 id="sky-title" className="font-display text-3xl font-semibold">
-            Join the stars
-          </h2>
-          <p className="mt-2 leading-relaxed text-muted">Each picture hides something I like.</p>
-        </div>
-        <div className="mx-auto mt-6 max-w-4xl">
-          <Constellations />
-        </div>
-      </section>
 
       <section
         aria-labelledby="voice-title"

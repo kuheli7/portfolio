@@ -71,7 +71,7 @@ const HELP = [
   "“take me to education”, “contact”, “open GitHub”",
   "“keep scrolling”, then “faster” or “stop”",
   "“dark mode”, “pause the video”, “go back”, “close”",
-  "“open my story”, “next page”, “play a game”",
+  "“open my story”, “next page”, “open the voice demo”",
   "Two at once: “scroll down and then open VoiceNav”. Hinglish too: “neeche scroll karo”",
 ];
 

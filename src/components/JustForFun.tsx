@@ -39,9 +39,9 @@ export function JustForFun() {
             <LiveLink href={LUMI_URL} name="Lumi’s Night Shift" label="Say hi to Lumi" />
           </div>
           <p className="relative z-10 mt-4 text-sm text-[#d9d0ee]">
-            Want to play here too?{" "}
+            Want to try something here too?{" "}
             <Link href="/play" className="font-semibold text-[#f6cf6a] underline-offset-4 hover:underline">
-              Join the stars into pictures, or steer this site with your voice
+              Steer this site with your voice
             </Link>
             .
           </p>

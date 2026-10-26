@@ -111,7 +111,7 @@ const SAY: [RegExp, string][] = [
   ],
   [
     /^(volume (up|down)|turn (the )?(volume|sound|audio) (up|down|on|off)|louder|quieter|(sound|audio|sounds) (on|off))$/,
-    "This site only makes a sound in the star game, and that has its own switch. The full extension controls volume on any site.",
+    "This site doesn’t play any sound, so there’s no volume to change. The full extension controls volume on any site.",
   ],
   [/^(scroll |go |move )?(left|right)$/, "This site doesn’t scroll sideways."],
 ];
@@ -131,9 +131,9 @@ const THEME: [RegExp, "dark" | "light" | "toggle"][] = [
 const PAGES: [RegExp, string, string][] = [
   [/^((go|take me|back)( to)? )?(the )?(home( ?page)?|main page|front page|landing page)$|^go back home$/, "/", "the homepage"],
   [
-    /^(?:(?:open|go to|take me to|show me|let'?s|lets|i want to|i wanna|can i|could i) )?(?:play )?(?:a |the |some |with the |with )?(?:play|games?|constellations?|star games?|star sky|stars|play page)$|^join the stars$|^make a constellation$/,
+    /^(?:(?:open|go to|take me to|show me|let'?s|lets|i want to|i wanna|can i|could i) )?(?:a |the |some |with the |with )?(?:play|voice demo|demo page|try (?:it|voicenav)|play page)$/,
     "/play",
-    "Play",
+    "Voice demo",
   ],
   [
     /^(open |go to |take me to |show me |read |tell me )?(the |my |your |her |their |life )?(story|story ?book|picture book|journey)$/,
@@ -348,7 +348,7 @@ export const CANON = [
   "about",
   "contact",
   "open my story",
-  "play a game",
+  "open the voice demo",
   "dark mode",
   "light mode",
   "go back",
