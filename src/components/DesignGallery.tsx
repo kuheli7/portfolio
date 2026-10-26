@@ -2,6 +2,7 @@ import Image from "next/image";
 import { designSites } from "@/data/projects";
 import { CodeLink, LiveLink, SectionHeading } from "./ui";
 import { Reveal } from "./Reveal";
+import { SitePeek } from "./SitePeek";
 
 export function DesignGallery() {
   return (
@@ -35,6 +36,7 @@ export function DesignGallery() {
             <p className="text-sm font-semibold text-accent">{site.tagline}</p>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{site.summary}</p>
             <div className="mt-4 flex flex-wrap gap-2">
+              <SitePeek name={site.name} href={site.live} />
               <LiveLink href={site.live} name={site.name} label="Visit site" />
               <CodeLink href={site.code} name={site.name} />
             </div>

@@ -63,7 +63,7 @@ export function Hero() {
           <p className="rise mt-6 max-w-2xl text-lg leading-relaxed text-muted" style={rise(3)}>
             Full-stack developer working across cloud, data and AI. I like problems where the answer has to be
             right: an AWS bill explained to the cent, a spoken command that clicks the right button, a credit score
-            that shows its reasons. Open to full-stack and SDE roles from <PenCircle>2027</PenCircle>.
+            that shows its reasons. Open to <PenCircle>full-stack and SDE roles</PenCircle>.
           </p>
           <div className="rise mt-8 flex flex-wrap items-center gap-3" style={rise(4)}>
             <a

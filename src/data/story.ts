@@ -83,7 +83,7 @@ export const storyPages: StoryPage[] = [
     kicker: "Chapter 6",
     title: "What’s next",
     body: [
-      "My MCA wraps up in 2027, and I’m looking for full-stack and SDE roles.",
+      "I’m looking for full-stack and SDE roles, and I’d love to hear what your team is building.",
       "If you’d like the longer story, or just want to talk about something I built, my inbox is open.",
     ],
     doodle: "plane",

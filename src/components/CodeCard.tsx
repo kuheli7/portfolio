@@ -28,16 +28,16 @@ const lines: Token[][] = [
   [["c", "  // some unfinished"]],
   [["", "  sideQuests: "], ...list(["drawing", "guitar", "beads"]), ["p", ","]],
   [["", "  snack: mood.good "], ["k", "?"], ["s", ' "mango" '], ["k", ":"], ["s", ' "grapes"'], ["p", ","]],
-  [["", "  openTo: "], ["s", '"SDE roles from 2027"'], ["p", ","]],
+  [["", "  openTo: "], ["s", '"full-stack & SDE roles"'], ["p", ","]],
   [["p", "};"]],
-  [["f", "hire"], ["p", "("], ["", "kuheli"], ["p", ");"], ["c", " // great idea"]],
+  [["f", "hire"], ["p", "("], ["", "kuheli"], ["p", ");"], ["c", " // mango included"]],
 ];
 
 export function CodeCard({ className = "", style }: { className?: string; style?: CSSProperties }) {
   return (
     <div
       role="img"
-      aria-label="A code card that types itself out: Kuheli is a full-stack developer focused on cloud, data and AI, an intern at Springer Capital, studying for an MCA at CHRIST University, and open to SDE roles from 2027."
+      aria-label="A code card that types itself out: Kuheli is a full-stack developer focused on cloud, data and AI, an intern at Springer Capital, studying for an MCA at CHRIST University, and open to full-stack and SDE roles."
       style={style}
       className={`overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(160deg,#2c2358,#1b1535)] text-[#fef7ed] shadow-2xl shadow-black/25 ${className}`}
     >

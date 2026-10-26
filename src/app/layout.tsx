@@ -71,6 +71,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <div className="night" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

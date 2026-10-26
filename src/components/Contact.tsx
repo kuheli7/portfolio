@@ -16,8 +16,8 @@ export function Contact() {
           Say hello
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-lg text-muted">
-          I’m open to full-stack and SDE roles from 2027, and happy to talk about cloud, data or AI work. Email is the
-          quickest way to reach me.
+          I’m open to full-stack and SDE roles, and happy to talk about cloud, data or AI work. Email is the quickest
+          way to reach me, and I’m glad to talk through timing.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <a
