@@ -333,7 +333,7 @@ body {
 }
 
 /* Marks below the fold wait until they scroll into view */
-.reveal-ready [data-reveal]:not([data-shown]) .scribble path {
+[data-wait] .scribble path {
   animation-play-state: paused;
 }
 
@@ -450,22 +450,49 @@ body {
     --i: 4;
   }
 
-  .reveal-ready [data-reveal=""]:not([data-shown]),
-  .reveal-ready [data-reveal="children"]:not([data-shown]) > * {
+  [data-reveal=""][data-wait],
+  [data-reveal="children"][data-wait] > * {
     opacity: 0;
     transform: translateY(28px);
   }
 
-  .reveal-ready .timeline:not([data-shown])::before {
+  /* Project cards: the picture slides in from its own side, then the text rises */
+  [data-reveal="card"] > * {
+    transition:
+      opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      translate 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      scale 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  [data-reveal="card"] > .card-text {
+    transition-delay: 0.12s;
+  }
+
+  [data-reveal="card"][data-wait] > * {
+    opacity: 0;
+    translate: 0 24px;
+  }
+
+  [data-reveal="card"][data-wait] > .card-media {
+    scale: 0.96;
+  }
+
+  @media (min-width: 1024px) {
+    [data-reveal="card"][data-wait] > .card-media {
+      translate: var(--from, -40px) 0;
+    }
+  }
+
+  .timeline[data-wait]::before {
     transform: scaleY(0);
   }
 
-  .reveal-ready .timeline:not([data-shown]) > li {
+  .timeline[data-wait] > li {
     opacity: 0;
     translate: -8px 0;
   }
 
-  .reveal-ready .timeline:not([data-shown]) .timeline-dot {
+  .timeline[data-wait] .timeline-dot {
     scale: 0;
   }
 
@@ -665,4 +692,43 @@ body {
     scale: 0.4;
     rotate: -12deg;
   }
+}
+
+/* ---------- Project cards: the edge lights up in gold and lavender on hover or keyboard focus ---------- */
+.project-card {
+  position: relative;
+}
+
+.project-card::before,
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* A soft glow outside the card */
+.project-card::before {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent-bg) 30%, transparent),
+    0 0 36px -6px color-mix(in oklab, var(--accent-bg) 45%, transparent);
+}
+
+/* The edge itself, a gradient ring cut out with a mask */
+.project-card::after {
+  padding: 1.5px;
+  background: linear-gradient(135deg, var(--accent-bg), var(--haze) 50%, var(--accent-bg));
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+.project-card:hover::before,
+.project-card:hover::after,
+.project-card:focus-within::before,
+.project-card:focus-within::after {
+  opacity: 1;
 }

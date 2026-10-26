@@ -1,16 +1,17 @@
 import { smallProjects, type SmallProject } from "@/data/projects";
 import { DemoVideo } from "./DemoVideo";
 import { CodeLink, LiveLink, SectionHeading, TagList } from "./ui";
+import { Reveal } from "./Reveal";
 
 export function MoreProjects() {
   return (
     <section aria-labelledby="more-title" id="more" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
       <SectionHeading id="more-title" eyebrow="More projects" title="Smaller builds, same care" />
-      <ul data-reveal="children" className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <Reveal as="ul" kind="children" className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {smallProjects.map((project) => (
           <ProjectCard key={project.name} project={project} />
         ))}
-      </ul>
+      </Reveal>
     </section>
   );
 }
@@ -20,7 +21,7 @@ function ProjectCard({ project }: { project: SmallProject }) {
   const wide = Boolean(project.media);
   return (
     <li
-      className={`flex flex-col gap-5 rounded-3xl border border-line bg-surface/50 p-5 ${
+      className={`project-card flex flex-col gap-5 rounded-3xl border border-line bg-surface/50 p-5 ${
         wide ? "md:col-span-2 lg:col-span-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:p-6" : ""
       }`}
     >

@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { caseStudies, type CaseStudy } from "@/data/projects";
 import { ArrowRightIcon, MicIcon } from "./icons";
 import { ProjectMedia } from "./ProjectMedia";
+import { Reveal } from "./Reveal";
 import { VoiceDemoButton } from "./VoiceDemo";
 import { CodeLink, LiveLink, SectionHeading, TagList } from "./ui";
 
@@ -12,7 +14,7 @@ export function FeaturedWork() {
         Four projects I can talk about for an hour each. Every number below comes with how it was measured, including
         the parts that aren’t finished yet.
       </SectionHeading>
-      <div data-reveal="children" className="grid gap-10">
+      <div className="grid gap-10">
         {caseStudies.map((project, i) => (
           <FeaturedCard key={project.slug} project={project} flip={i % 2 === 1} />
         ))}
@@ -27,14 +29,18 @@ function FeaturedCard({ project, flip }: { project: CaseStudy; flip: boolean }) 
   const diagram = project.media.kind === "voicenav";
   const mediaOrder = diagram ? (flip ? "order-last" : "order-last lg:order-none") : flip ? "lg:order-last" : undefined;
   return (
-    <article
+    // Each card comes in on its own as it scrolls into view: the picture slides in from its side, then the text rises
+    <Reveal
+      as="article"
+      kind="card"
       aria-labelledby={titleId}
-      className="grid items-center gap-6 rounded-3xl border border-line bg-surface/50 p-4 sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8"
+      style={{ "--from": flip ? "40px" : "-40px" } as CSSProperties}
+      className="project-card grid items-center gap-6 rounded-3xl border border-line bg-surface/50 p-4 sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8"
     >
-      <div className={mediaOrder}>
+      <div className={`card-media ${mediaOrder ?? ""}`}>
         <ProjectMedia media={project.media} />
       </div>
-      <div>
+      <div className="card-text">
         <p className="text-sm font-semibold text-accent">
           {project.kind} · {project.period}
         </p>
@@ -85,6 +91,6 @@ function FeaturedCard({ project, flip }: { project: CaseStudy; flip: boolean }) 
         </div>
         {project.liveNote && <p className="mt-2 text-xs text-muted">{project.liveNote}</p>}
       </div>
-    </article>
+    </Reveal>
   );
 }

@@ -3,12 +3,12 @@ import { profile } from "@/data/profile";
 import { CopyEmail } from "./CopyEmail";
 import { PenArrow } from "./Doodles";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
+import { Reveal } from "./Reveal";
 
 export function Contact() {
   return (
     <section aria-labelledby="contact-title" id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-4 pt-10 pb-24 sm:px-6">
-      <div
-        data-reveal=""
+      <Reveal
         className="relative overflow-hidden rounded-3xl border border-line bg-surface/60 px-5 py-12 text-center sm:px-10"
       >
         <Image src="/media/lumi.svg" alt="" width={96} height={96} className="mx-auto mb-4 size-20" />
@@ -53,7 +53,7 @@ export function Contact() {
             <GitHubIcon /> GitHub
           </a>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

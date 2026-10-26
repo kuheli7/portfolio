@@ -1,15 +1,16 @@
 import type { ReactNode } from "react";
 import { ExternalIcon, GitHubIcon } from "./icons";
+import { Reveal } from "./Reveal";
 
 export function SectionHeading({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children?: ReactNode }) {
   return (
-    <div data-reveal="" className="mb-10 max-w-3xl">
+    <Reveal className="mb-10 max-w-3xl">
       <p className="mb-2 font-display text-sm font-medium tracking-wider text-accent uppercase">{eyebrow}</p>
       <h2 id={id} className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
         {title}
       </h2>
       {children && <div className="mt-4 text-lg leading-relaxed text-muted">{children}</div>}
-    </div>
+    </Reveal>
   );
 }
 

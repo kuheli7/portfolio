@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowRightIcon } from "./icons";
 import { SectionHeading } from "./ui";
+import { Reveal } from "./Reveal";
 
 const skills = [
   { group: "Languages", items: "Java, Python, JavaScript, TypeScript, C" },
@@ -65,7 +66,7 @@ export function About() {
   return (
     <section aria-labelledby="about-title" id="about" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
       <SectionHeading id="about-title" eyebrow="About" title="From economics to software" />
-      <div data-reveal="" className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+      <Reveal className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
         <div className="space-y-4 text-lg leading-relaxed text-muted">
           <p>
             I came to software from economics. After a B.A. and an M.A. in Economics at Visva-Bharati University, I
@@ -101,7 +102,7 @@ export function About() {
           <Timeline title="Certifications" entries={certifications} />
           <Timeline title="Leadership" entries={leadership} />
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -110,7 +111,7 @@ function Timeline({ title, entries }: { title: string; entries: Entry[] }) {
   return (
     <div>
       <h3 className="mb-3 font-display text-xl font-semibold">{title}</h3>
-      <ul data-reveal="line" className="timeline relative space-y-3 pl-5">
+      <Reveal as="ul" kind="line" className="timeline relative space-y-3 pl-5">
         {entries.map((entry, i) => (
           <li key={entry.title} className="relative" style={{ "--i": i } as CSSProperties}>
             <span
@@ -124,7 +125,7 @@ function Timeline({ title, entries }: { title: string; entries: Entry[] }) {
             {entry.detail && <p className="text-sm text-muted">{entry.detail}</p>}
           </li>
         ))}
-      </ul>
+      </Reveal>
     </div>
   );
 }

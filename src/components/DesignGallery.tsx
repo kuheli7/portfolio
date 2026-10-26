@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { designSites } from "@/data/projects";
 import { CodeLink, LiveLink, SectionHeading } from "./ui";
+import { Reveal } from "./Reveal";
 
 export function DesignGallery() {
   return (
@@ -9,7 +10,7 @@ export function DesignGallery() {
         Mobile-first sites for three fictional brands, made to show local cafés and sweet shops what their own site
         could look like. Ordering hands off to WhatsApp, so there’s no backend and nothing to pay for.
       </SectionHeading>
-      <ul data-reveal="children" className="grid gap-8 md:grid-cols-3">
+      <Reveal as="ul" kind="children" className="grid gap-8 md:grid-cols-3">
         {designSites.map((site) => (
           <li key={site.name} className="flex flex-col">
             <div className="relative mb-8 mr-4">
@@ -39,7 +40,7 @@ export function DesignGallery() {
             </div>
           </li>
         ))}
-      </ul>
+      </Reveal>
     </section>
   );
 }

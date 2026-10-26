@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Caveat, Fredoka, Nunito } from "next/font/google";
 import { EasterEggs } from "@/components/EasterEggs";
-import { RevealObserver } from "@/components/RevealObserver";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { VoiceDemo } from "@/components/VoiceDemo";
@@ -77,7 +76,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
-        <RevealObserver />
         <EasterEggs />
         <VoiceDemo />
       </body>
