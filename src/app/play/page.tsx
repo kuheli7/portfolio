@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Constellations } from "@/components/Constellations";
 import { ArrowLeftIcon, ArrowRightIcon, MicIcon } from "@/components/icons";
 import { VoiceDemoButton } from "@/components/VoiceDemo";
 
@@ -35,6 +36,22 @@ export default function PlayPage() {
           Small experiments that grew out of my projects and my evenings. Nothing here is graded, so press anything.
         </p>
       </header>
+
+      <section aria-labelledby="sky-title" className="mt-12 rounded-3xl border border-line bg-surface/50 p-5 sm:p-8">
+        <div className="max-w-3xl">
+          <p className="font-display text-sm font-medium tracking-wider text-accent uppercase">Star pictures</p>
+          <h2 id="sky-title" className="mt-2 font-display text-3xl font-semibold">
+            Join the stars
+          </h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            Each picture hides something I like. Follow the faint dotted lines to find it, or pick free draw and make
+            your own.
+          </p>
+        </div>
+        <div className="mx-auto mt-6 max-w-4xl">
+          <Constellations />
+        </div>
+      </section>
 
       <section
         aria-labelledby="voice-title"
