@@ -8,6 +8,17 @@ const steps = [
   { title: "Validate, then click", body: "“Buy”, “pay” and “delete” wait for a spoken yes", tag: "safe" },
 ] as const;
 
+// On wide screens the steps snake: 1, 2, 3 left to right, then down and back leftwards through 4, 5, 6, so the bottom row
+// reads 6, 5, 4 from the left and the arrows show the way. On phones it is one column, 1 to 6. The list order is always 1 to 6.
+const wide = [
+  { cell: "sm:col-start-1 sm:row-start-1", arrow: "sm:top-1/2 sm:-right-3.5 sm:-translate-y-1/2", glyph: "→" },
+  { cell: "sm:col-start-2 sm:row-start-1", arrow: "sm:top-1/2 sm:-right-3.5 sm:-translate-y-1/2", glyph: "→" },
+  { cell: "sm:col-start-3 sm:row-start-1", arrow: "sm:-bottom-3.5 sm:left-1/2 sm:-translate-x-1/2", glyph: "↓" },
+  { cell: "sm:col-start-3 sm:row-start-2", arrow: "sm:top-1/2 sm:-left-3.5 sm:-translate-y-1/2", glyph: "←" },
+  { cell: "sm:col-start-2 sm:row-start-2", arrow: "sm:top-1/2 sm:-left-3.5 sm:-translate-y-1/2", glyph: "←" },
+  { cell: "sm:col-start-1 sm:row-start-2", arrow: "", glyph: "" },
+];
+
 const tags = {
   voice: { label: "Voice", dot: "bg-[#f29aac]" },
   code: { label: "Plain code", dot: "bg-[#9fe3d6]" },
@@ -31,7 +42,7 @@ export function VoiceNavPipeline() {
       </figcaption>
       <ol className="grid gap-2 sm:grid-cols-3">
         {steps.map((step, i) => (
-          <li key={step.title} className="relative flex gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
+          <li key={step.title} className={`relative flex gap-3 rounded-xl border border-white/10 bg-white/5 p-3 ${wide[i].cell}`}>
             <span
               aria-hidden="true"
               className={`grid size-7 shrink-0 place-items-center rounded-full font-display text-sm font-semibold text-[#1b1535] ${tags[step.tag].dot}`}
@@ -45,13 +56,10 @@ export function VoiceNavPipeline() {
             {i < steps.length - 1 && (
               <span
                 aria-hidden="true"
-                className={`absolute z-10 text-[#f6cf6a] max-sm:-bottom-3.5 max-sm:left-1/2 max-sm:-translate-x-1/2 ${
-                  i === 2
-                    ? "sm:-bottom-3.5 sm:left-1/2 sm:-translate-x-1/2"
-                    : "sm:top-1/2 sm:-right-3.5 sm:-translate-y-1/2"
-                }`}
+                className={`absolute z-10 text-[#f6cf6a] max-sm:-bottom-3.5 max-sm:left-1/2 max-sm:-translate-x-1/2 ${wide[i].arrow}`}
               >
-                {i === 2 ? "↓" : <><span className="sm:hidden">↓</span><span className="max-sm:hidden">→</span></>}
+                <span className="sm:hidden">↓</span>
+                <span className="max-sm:hidden">{wide[i].glyph}</span>
               </span>
             )}
           </li>

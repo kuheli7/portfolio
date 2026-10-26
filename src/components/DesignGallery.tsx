@@ -12,19 +12,30 @@ export function DesignGallery() {
       <Reveal as="ul" kind="children" className="grid gap-8 md:grid-cols-3">
         {designSites.map((site) => (
           <li key={site.name} className="flex flex-col">
-            {/* A plain img keeps the animation (the image optimiser would flatten it). Reduced-motion visitors get the still. */}
-            <picture>
-              <source media="(prefers-reduced-motion: reduce)" srcSet={site.desktop.src} />
-              <img
-                src={site.scroll}
-                alt={`${site.name} home page, scrolling through the menu and sections`}
-                width={720}
-                height={450}
-                loading="lazy"
-                decoding="async"
-                className="mb-6 aspect-[16/10] w-full rounded-xl border border-line object-cover object-top"
-              />
-            </picture>
+            {/* The preview is a link to the live site. "Visit site" below does the same for keyboards and screen readers,
+                so this one is hidden from both. A plain img keeps the animation; reduced-motion visitors get the still. */}
+            <a
+              href={site.live}
+              tabIndex={-1}
+              aria-hidden="true"
+              className="group relative mb-6 block overflow-hidden rounded-xl border border-line transition-colors hover:border-accent"
+            >
+              <picture>
+                <source media="(prefers-reduced-motion: reduce)" srcSet={site.desktop.src} />
+                <img
+                  src={site.scroll}
+                  alt=""
+                  width={720}
+                  height={450}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[16/10] w-full object-cover object-top"
+                />
+              </picture>
+              <span className="absolute right-2 bottom-2 inline-flex items-center gap-1 rounded-full bg-[#1b1535]/85 px-3 py-1 text-xs font-semibold text-[#fef7ed] opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 max-md:opacity-100">
+                Open live site <span aria-hidden="true">↗</span>
+              </span>
+            </a>
             <h3 className="font-display text-2xl font-semibold">{site.name}</h3>
             <p className="text-sm font-semibold text-accent">{site.tagline}</p>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{site.summary}</p>
