@@ -81,7 +81,7 @@ export function StoryBook() {
                 key={page.id}
                 hidden={!open}
                 aria-labelledby={`story-${page.id}`}
-                className={`story-page relative min-h-[27rem] px-6 pt-9 pb-12 sm:min-h-[31rem] sm:pt-11 sm:pr-12 sm:pl-16 ${open && turn ? `turn-${turn}` : ""}`}
+                className={`story-page relative min-h-[27rem] px-6 pt-9 pb-12 sm:min-h-[31rem] sm:pt-11 sm:pr-12 sm:pl-24 ${open && turn ? `turn-${turn}` : ""}`}
               >
                 <div className="grid gap-6 sm:grid-cols-[1fr_auto]">
                   <div>
