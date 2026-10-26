@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/profile";
 import { storyPages } from "@/data/story";
+import { CopyEmail } from "./CopyEmail";
 import { ArrowLeftIcon, ArrowRightIcon, MailIcon } from "./icons";
 import { StoryDoodle } from "./StoryDoodle";
 
@@ -222,6 +223,7 @@ function TheEnd({ onAgain }: { onAgain: () => void }) {
           >
             <MailIcon /> Email me
           </a>
+          <CopyEmail email={profile.email} />
           <button type="button" onClick={onAgain} className={buttonClass}>
             Read it again
           </button>
@@ -229,6 +231,9 @@ function TheEnd({ onAgain }: { onAgain: () => void }) {
             Back home
           </Link>
         </div>
+        <p className="mt-3 text-sm text-muted">
+          If the button doesn’t open your mail app, the address is <span className="font-semibold text-fg">{profile.email}</span>.
+        </p>
       </div>
     </div>
   );
