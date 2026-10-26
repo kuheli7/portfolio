@@ -187,8 +187,8 @@ export const caseStudies: CaseStudy[] = [
       kind: "video",
       src: "/media/creditlens.mp4",
       poster: "/media/creditlens-poster.webp",
-      width: 800,
-      height: 500,
+      width: 1280,
+      height: 800,
       label: "CreditLens demo: loading a historical applicant, scoring them, then reading the decision and the SHAP chart that explains it",
     },
     problem:
@@ -239,8 +239,8 @@ export const caseStudies: CaseStudy[] = [
       kind: "video",
       src: "/media/tree-editor.mp4",
       poster: "/media/tree-editor-poster.webp",
-      width: 800,
-      height: 500,
+      width: 1280,
+      height: 800,
       label: "Policy Tree Editor demo: opening a node’s properties, searching nodes, adding a node from a template, auto-layout and dark mode",
     },
     problem:
