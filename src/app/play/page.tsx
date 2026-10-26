@@ -12,12 +12,10 @@ export const metadata: Metadata = {
 };
 
 const tryThese = [
-  ["“scroll down a little”", "the same phrases the extension knows"],
-  ["“open CostLens”", "jumps to the case study"],
-  ["“take me to education”", "finds the right section"],
-  ["“keep scrolling”, then “stop”", "hands-free reading"],
-  ["“neeche scroll karo”", "Hinglish works too"],
-  ["“dark mode and then open VoiceNav”", "two steps at once"],
+  "“scroll down a little”",
+  "“open CostLens”",
+  "“neeche scroll karo” (Hinglish)",
+  "“dark mode and then open VoiceNav”",
 ];
 
 export default function PlayPage() {
@@ -32,21 +30,15 @@ export default function PlayPage() {
       <header className="max-w-3xl">
         <p className="mb-2 font-display text-sm font-medium tracking-wider text-accent uppercase">Play</p>
         <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">A few things to poke at</h1>
-        <p className="mt-4 text-lg leading-relaxed text-muted">
-          Small experiments that grew out of my projects and my evenings. Nothing here is graded, so press anything.
-        </p>
+        <p className="mt-4 text-lg leading-relaxed text-muted">Small experiments from my projects. Press anything.</p>
       </header>
 
       <section aria-labelledby="sky-title" className="mt-12 rounded-3xl border border-line bg-surface/50 p-5 sm:p-8">
         <div className="max-w-3xl">
-          <p className="font-display text-sm font-medium tracking-wider text-accent uppercase">Star pictures</p>
-          <h2 id="sky-title" className="mt-2 font-display text-3xl font-semibold">
+          <h2 id="sky-title" className="font-display text-3xl font-semibold">
             Join the stars
           </h2>
-          <p className="mt-3 leading-relaxed text-muted">
-            Each picture hides something I like. Follow the faint dotted lines to find it, or pick free draw and make
-            your own.
-          </p>
+          <p className="mt-2 leading-relaxed text-muted">Each picture hides something I like.</p>
         </div>
         <div className="mx-auto mt-6 max-w-4xl">
           <Constellations />
@@ -58,22 +50,12 @@ export default function PlayPage() {
         className="mt-12 grid gap-8 rounded-3xl border border-line bg-surface/50 p-5 sm:p-8 lg:grid-cols-[1.2fr_1fr]"
       >
         <div>
-          <p className="font-display text-sm font-medium tracking-wider text-accent uppercase">VoiceNav, on this site</p>
-          <h2 id="voice-title" className="mt-2 font-display text-3xl font-semibold">
+          <h2 id="voice-title" className="font-display text-3xl font-semibold">
             Steer this site with your voice
           </h2>
-          <div className="mt-3 space-y-3 leading-relaxed text-muted">
-            <p>
-              VoiceNav is a browser extension I built for moving around the web by voice. This is a small version of it
-              that only knows this site. It runs the same command parser as the real extension, so the phrases in the
-              list all work.
-            </p>
-            <p>
-              The full extension also handles tabs, forms and searching, and anything the rules don’t recognise goes to
-              a small AI model running on your own computer. No voice in your browser? Type instead. It works the same
-              way.
-            </p>
-          </div>
+          <p className="mt-2 leading-relaxed text-muted">
+            A mini VoiceNav, my browser extension, that only knows this site. No mic? Type instead.
+          </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <VoiceDemoButton className="inline-flex items-center gap-2 rounded-full bg-accent-bg px-5 py-2 font-semibold text-accent-ink transition-transform hover:-translate-y-0.5">
               <MicIcon /> Start talking
@@ -96,10 +78,9 @@ export default function PlayPage() {
           />
           <h3 className="font-display text-lg font-semibold">Try saying</h3>
           <ul className="mt-3 space-y-2.5">
-            {tryThese.map(([phrase, note]) => (
-              <li key={phrase}>
-                <span className="font-semibold">{phrase}</span>
-                <span className="block text-sm text-muted">{note}</span>
+            {tryThese.map((phrase) => (
+              <li key={phrase} className="font-semibold">
+                {phrase}
               </li>
             ))}
           </ul>

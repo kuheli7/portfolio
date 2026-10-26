@@ -15,6 +15,9 @@ const PINCH_ON = 0.33;
 const PINCH_OFF = 0.45;
 // Only the middle of the camera view maps onto the sky, so the edges are easy to reach
 const MARGIN = 0.12;
+// The tracker loses the hand for a frame now and then. Wait this many frames before treating it as gone,
+// so a blip doesn't drop a star you're carrying.
+const MISSES = 8;
 
 export type HandPoint = { x: number; y: number; pinched: boolean };
 type Props = { onHand: (point: HandPoint | null, pinch: "start" | "end" | null) => void };
@@ -52,6 +55,7 @@ export function HandControl({ onHand }: Props) {
     let frame = 0;
     let pinched = false;
     let lastTime = -1;
+    let missed = MISSES;
     let smooth: { x: number; y: number } | null = null;
 
     function stop() {
@@ -69,10 +73,13 @@ export function HandControl({ onHand }: Props) {
         lastTime = video.currentTime;
         const hand = tracker.detectForVideo(video, performance.now()).landmarks[0];
         if (!hand) {
-          handler.current(null, pinched ? "end" : null);
-          pinched = false;
-          smooth = null;
+          if (++missed === MISSES) {
+            handler.current(null, pinched ? "end" : null);
+            pinched = false;
+            smooth = null;
+          }
         } else {
+          missed = 0;
           const ratio = distance(hand[4], hand[8]) / Math.max(distance(hand[0], hand[9]), 0.001);
           let change: "start" | "end" | null = null;
           if (!pinched && ratio < PINCH_ON) {
@@ -82,9 +89,12 @@ export function HandControl({ onHand }: Props) {
             pinched = false;
             change = "end";
           }
-          // The camera image is mirrored, so moving your hand right moves the pointer right
-          const x = clamp((1 - hand[8].x - MARGIN) / (1 - 2 * MARGIN));
-          const y = clamp((hand[8].y - MARGIN) / (1 - 2 * MARGIN));
+          // The pointer sits between the thumb and pointer finger tips, so it stays put while you pinch instead of
+          // following the finger down. The camera image is mirrored, so moving your hand right moves it right.
+          const mx = (hand[4].x + hand[8].x) / 2;
+          const my = (hand[4].y + hand[8].y) / 2;
+          const x = clamp((1 - mx - MARGIN) / (1 - 2 * MARGIN));
+          const y = clamp((my - MARGIN) / (1 - 2 * MARGIN));
           smooth = smooth ? { x: smooth.x + (x - smooth.x) * 0.5, y: smooth.y + (y - smooth.y) * 0.5 } : { x, y };
           handler.current({ ...smooth, pinched }, change);
         }
@@ -157,16 +167,14 @@ export function HandControl({ onHand }: Props) {
           className={`h-20 w-28 -scale-x-100 rounded-xl bg-black object-cover ${status === "on" ? "" : "hidden"}`}
         />
         <p aria-live="polite" className="min-w-0 flex-1 text-sm leading-relaxed">
-          {status === "loading" && "Starting the camera and loading hand tracking…"}
-          {status === "on" &&
-            "Point at a star with your pointer finger. Pinch your thumb and finger together to grab it, then pinch on the next star to join them."}
+          {status === "off" && (
+            <span className="text-muted">Video stays on your device. Turning it on downloads Google’s hand model.</span>
+          )}
+          {status === "loading" && "Starting the camera…"}
+          {status === "on" && "Pinch on a star, then pinch on the next one."}
           {status === "error" && error}
         </p>
       </div>
-      <p className="mt-3 text-xs leading-relaxed text-muted">
-        Hand mode uses your camera to follow one hand. The video never leaves your device, but turning it on downloads a
-        hand-tracking model from Google.
-      </p>
     </div>
   );
 }
