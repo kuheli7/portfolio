@@ -69,11 +69,12 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Python", "FastAPI", "AWS Lambda", "EventBridge", "CloudTrail", "React", "Slack", "Hypothesis"],
     code: "https://github.com/kuheli7/costLens",
     media: {
-      kind: "image",
-      src: "/media/costlens.webp",
+      kind: "video",
+      src: "/media/costlens.mp4",
+      poster: "/media/costlens-poster.webp",
       width: 1280,
       height: 800,
-      alt: "The CostLens dashboard, running on synthetic demo data, showing a daily cost change broken down by cause",
+      label: "CostLens dashboard demo on synthetic data: hovering the daily spend chart, then reading why spend changed and the waste it found",
     },
     problem:
       "AWS Cost Explorer can tell you that EC2 went up. It can't tell you which instance, who launched it, or whether you're paying for more hours or a higher price per hour. CostLens answers that every morning, read-only, inside your own AWS account, and lists idle resources with the money they waste.",
