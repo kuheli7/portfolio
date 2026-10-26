@@ -239,9 +239,9 @@ export const caseStudies: CaseStudy[] = [
       kind: "video",
       src: "/media/tree-editor.mp4",
       poster: "/media/tree-editor-poster.webp",
-      width: 1280,
-      height: 800,
-      label: "Policy Tree Editor demo: opening a node’s properties, searching nodes, adding a node from a template, auto-layout and dark mode",
+      width: 1600,
+      height: 1000,
+      label: "Policy Tree Editor demo: zooming into the tree, opening a node’s properties, searching nodes, adding a node from a template, auto-layout and dark mode",
     },
     problem:
       "Compliance policies are trees of rules, conditions and actions. Editing them as raw JSON is error-prone, and a visual editor only helps if it stops you from making a tree that can’t be evaluated: two roots, orphaned nodes or loops.",
