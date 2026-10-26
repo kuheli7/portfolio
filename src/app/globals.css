@@ -615,6 +615,11 @@ body {
   transform-origin: center;
 }
 
+/* Once a picture is finished its stars glow a little brighter */
+.star-lit {
+  opacity: 0.45;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .sky-dot {
     animation: sky-tw 5s ease-in-out infinite alternate;
@@ -639,6 +644,11 @@ body {
 
   .star-held {
     animation: held-pulse 1.4s ease-in-out infinite;
+  }
+
+  .star-halo,
+  .star-lit {
+    transition: opacity 0.6s;
   }
 
   .sky-flame {

@@ -504,13 +504,13 @@ export function Constellations() {
             {i === anchor && (
               <circle cx={s.x} cy={s.y} r="17" fill="none" stroke="#f6cf6a" strokeWidth="2.5" className="star-held" />
             )}
-            {i === aim && i !== start && (
+            {i === aim && i !== start && !complete && (
               <circle cx={s.x} cy={s.y} r="19" fill="#fef7ed" fillOpacity="0.12" stroke="#fef7ed" strokeOpacity="0.7" strokeWidth="2" />
             )}
-            {focused && i === cursor && i !== anchor && i !== aim && (
+            {focused && !complete && i === cursor && i !== anchor && i !== aim && (
               <circle cx={s.x} cy={s.y} r="17" fill="none" stroke="#fef7ed" strokeWidth="2" strokeDasharray="4 4" />
             )}
-            <circle cx={s.x} cy={s.y} r="14" fill="#f6cf6a" opacity="0.16" />
+            <circle cx={s.x} cy={s.y} r="14" fill="#f6cf6a" opacity="0.16" className={complete ? "star-lit" : "star-halo"} />
             <circle cx={s.x} cy={s.y} r="5.5" fill="#fef7ed" />
           </g>
         ))}
