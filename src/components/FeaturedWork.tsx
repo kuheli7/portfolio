@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { caseStudies, type CaseStudy } from "@/data/projects";
-import { ArrowRightIcon } from "./icons";
+import { ArrowRightIcon, MicIcon } from "./icons";
 import { ProjectMedia } from "./ProjectMedia";
+import { VoiceDemoButton } from "./VoiceDemo";
 import { CodeLink, LiveLink, SectionHeading, TagList } from "./ui";
 
 export function FeaturedWork() {
@@ -76,6 +77,11 @@ function FeaturedCard({ project, flip }: { project: CaseStudy; flip: boolean }) 
           </Link>
           <CodeLink href={project.code} name={project.name} />
           {project.live && <LiveLink href={project.live} name={project.name} />}
+          {project.slug === "voicenav" && (
+            <VoiceDemoButton className="inline-flex items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+              <MicIcon /> Try it on this site
+            </VoiceDemoButton>
+          )}
         </div>
         {project.liveNote && <p className="mt-2 text-xs text-muted">{project.liveNote}</p>}
       </div>

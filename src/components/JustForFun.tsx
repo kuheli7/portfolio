@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { LiveLink } from "./ui";
 
 export function JustForFun() {
@@ -29,6 +30,13 @@ export function JustForFun() {
           <div className="mt-5 [&_a]:outline-[#f6cf6a] [&_a]:border-white/20 [&_a]:text-[#fef7ed] [&_a:hover]:border-[#f6cf6a] [&_a:hover]:text-[#f6cf6a]">
             <LiveLink href="https://kuheli7.github.io/lumi-baby-moth/" name="Lumi’s Night Shift" label="Say hi to Lumi" />
           </div>
+          <p className="mt-4 text-sm text-[#d9d0ee]">
+            Want to play here too?{" "}
+            <Link href="/play" className="font-semibold text-[#f6cf6a] underline-offset-4 hover:underline">
+              Join the stars into pictures, or steer this site with your voice
+            </Link>
+            .
+          </p>
         </div>
       </div>
     </section>

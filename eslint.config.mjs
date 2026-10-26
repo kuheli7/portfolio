@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Copied as-is from the VoiceNav extension
+    "src/lib/voicenav/parser.js",
   ]),
 ]);
 

@@ -4,6 +4,7 @@ import { EasterEggs } from "@/components/EasterEggs";
 import { RevealObserver } from "@/components/RevealObserver";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { VoiceDemo } from "@/components/VoiceDemo";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-theme="dark"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${fredoka.variable} ${nunito.variable} ${caveat.variable} h-full antialiased`}
     >
@@ -77,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteFooter />
         <RevealObserver />
         <EasterEggs />
+        <VoiceDemo />
       </body>
     </html>
   );

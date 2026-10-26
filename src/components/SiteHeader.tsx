@@ -5,6 +5,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { href: "/#work", label: "Work", wide: false },
+  { href: "/play", label: "Play", wide: false },
   { href: "/#about", label: "About", wide: true },
   { href: "/#contact", label: "Contact", wide: true },
 ];

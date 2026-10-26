@@ -136,3 +136,22 @@ export function CopyIcon(props: IconProps) {
     </Stroke>
   );
 }
+
+export function MicIcon(props: IconProps) {
+  return (
+    <Stroke {...props}>
+      <rect x="9" y="2" width="6" height="12" rx="3" />
+      <path d="M19 10v1a7 7 0 0 1-14 0v-1" />
+      <path d="M12 18v4" />
+    </Stroke>
+  );
+}
+
+export function CloseIcon(props: IconProps) {
+  return (
+    <Stroke {...props}>
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </Stroke>
+  );
+}
