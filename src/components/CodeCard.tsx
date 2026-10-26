@@ -1,4 +1,6 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useEffect, useState, type CSSProperties } from "react";
 
 // Token kinds: c comment, k keyword, s string, f function call, p punctuation, plain text otherwise.
 type Token = [kind: "c" | "k" | "s" | "f" | "p" | "", text: string];
@@ -33,13 +35,33 @@ const lines: Token[][] = [
   [["f", "hire"], ["p", "("], ["", "kuheli"], ["p", ");"], ["c", " // mango included"]],
 ];
 
+// The typing holds at the first frame until the card is on screen, so on a phone, where it sits below the fold, it
+// isn't already finished by the time you scroll to it. A card that is on screen at load just types straight away.
 export function CodeCard({ className = "", style }: { className?: string; style?: CSSProperties }) {
+  const [el, setEl] = useState<HTMLDivElement | null>(null);
+  const [state, setState] = useState<"idle" | "wait" | "shown">("idle");
+
+  useEffect(() => {
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) observer.disconnect();
+        setState((s) => (s === "shown" || entry.isIntersecting ? "shown" : "wait"));
+      },
+      { threshold: 0.6 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [el]);
+
   return (
     <div
+      ref={setEl}
+      data-wait={state === "wait" ? "" : undefined}
       role="img"
       aria-label="A code card that types itself out: Kuheli is a full-stack developer focused on cloud, data and AI, an intern at Springer Capital, studying for an MCA at CHRIST University, and open to full-stack and SDE roles."
       style={style}
-      className={`overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(160deg,#2c2358,#1b1535)] text-[#fef7ed] shadow-2xl shadow-black/25 ${className}`}
+      className={`code-card overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(160deg,#2c2358,#1b1535)] text-[#fef7ed] shadow-2xl shadow-black/25 ${className}`}
     >
       <div className="flex items-center gap-1.5 bg-[#221c44] px-4 pt-3">
         <i className="size-2.5 rounded-full bg-[#f29aac]" />

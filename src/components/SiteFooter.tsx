@@ -16,7 +16,7 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-col gap-2 border-t border-dashed border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="someday flex flex-wrap items-center gap-x-2 gap-y-1">
+          <p className="someday hidden flex-wrap items-center gap-x-2 gap-y-1 sm:flex">
             <svg aria-hidden="true" viewBox="0 0 24 24" className="plane size-4 shrink-0 text-accent">
               <path
                 d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"

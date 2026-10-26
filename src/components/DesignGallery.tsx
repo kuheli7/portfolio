@@ -1,6 +1,7 @@
 import { designSites } from "@/data/projects";
 import { CodeLink, LiveLink, SectionHeading } from "./ui";
 import { Reveal } from "./Reveal";
+import { ScrollPreview } from "./ScrollPreview";
 
 export function DesignGallery() {
   return (
@@ -13,25 +14,19 @@ export function DesignGallery() {
         {designSites.map((site) => (
           <li key={site.name} className="flex flex-col">
             {/* The preview is a link to the live site. "Visit site" below does the same for keyboards and screen readers,
-                so this one is hidden from both. A plain img keeps the animation; reduced-motion visitors get the still. */}
+                so this one is hidden from both. The animation only plays while it is on screen. */}
             <a
               href={site.live}
               tabIndex={-1}
               aria-hidden="true"
               className="group relative mb-6 block overflow-hidden rounded-xl border border-line transition-colors hover:border-accent"
             >
-              <picture>
-                <source media="(prefers-reduced-motion: reduce)" srcSet={site.desktop.src} />
-                <img
-                  src={site.scroll}
-                  alt=""
-                  width={720}
-                  height={450}
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-[16/10] w-full object-cover object-top"
-                />
-              </picture>
+              <ScrollPreview
+                still={site.desktop.src}
+                animated={site.scroll}
+                width={site.desktop.width}
+                height={site.desktop.height}
+              />
               <span className="absolute right-2 bottom-2 inline-flex items-center gap-1 rounded-full bg-[#1b1535]/85 px-3 py-1 text-xs font-semibold text-[#fef7ed] opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 max-md:opacity-100">
                 Open live site <span aria-hidden="true">↗</span>
               </span>

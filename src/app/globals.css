@@ -255,7 +255,10 @@ body {
   }
 }
 
-/* ---------- kuheli.ts: each line types itself out ---------- */
+/* ---------- kuheli.ts: each line types itself out, once the card is on screen ---------- */
+.code-card[data-wait] .code-line {
+  animation-play-state: paused;
+}
 .code-line {
   display: block;
   animation: type 0.45s steps(26) both;
@@ -632,6 +635,14 @@ body {
 .project-card:focus-within::before,
 .project-card:focus-within::after {
   opacity: 1;
+}
+
+/* Without a hover, the card in the middle of the screen glows instead (ActiveCards sets data-live) */
+@media (hover: none), (max-width: 767px) {
+  .project-card[data-live]::before,
+  .project-card[data-live]::after {
+    opacity: 1;
+  }
 }
 
 /* ---------- Living background: slow aurora and faint stars behind everything ---------- */

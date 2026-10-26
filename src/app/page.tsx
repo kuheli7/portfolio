@@ -1,4 +1,5 @@
 import { About } from "@/components/About";
+import { ActiveCards } from "@/components/ActiveCards";
 import { Contact } from "@/components/Contact";
 import { DesignGallery } from "@/components/DesignGallery";
 import { FeaturedWork } from "@/components/FeaturedWork";
@@ -16,6 +17,7 @@ export default function Home() {
       <JustForFun />
       <About />
       <Contact />
+      <ActiveCards />
     </>
   );
 }
