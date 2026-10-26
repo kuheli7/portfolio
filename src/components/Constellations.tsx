@@ -10,6 +10,7 @@ import {
   type KeyboardEvent,
   type PointerEvent,
 } from "react";
+import { HandControl, type HandPoint } from "@/components/HandControl";
 import { backgroundStars, constellations, freeStars, type Star } from "@/data/constellations";
 
 // Join the stars into pictures. Works with a mouse (click star to star, or drag), touch, and the keyboard
@@ -19,7 +20,7 @@ const FREE = constellations.length;
 // C major pentatonic, so any run of joins sounds pleasant
 const NOTES = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66, 1318.51, 1567.98, 1760, 2093];
 // How far, in screen pixels, a pointer can be from a star and still pick it
-const SNAP: Record<string, number> = { mouse: 22, pen: 22, touch: 32 };
+const SNAP: Record<string, number> = { mouse: 22, pen: 22, touch: 32, hand: 44 };
 const DIRECTIONS: Record<string, [number, number]> = {
   ArrowUp: [0, -1],
   ArrowDown: [0, 1],
@@ -29,7 +30,8 @@ const DIRECTIONS: Record<string, [number, number]> = {
 
 type Line = [number, number];
 type Wrong = { id: number; a: number; b: number };
-type Drag = { from: number; release: boolean; moved: boolean; x: number; y: number };
+type Drag = { from: number; fresh: boolean; moved: boolean; x: number; y: number };
+type SkyPoint = Star & { unit: number };
 
 const pairKey = (a: number, b: number) => (a < b ? `${a}-${b}` : `${b}-${a}`);
 
@@ -38,12 +40,14 @@ export function Constellations() {
   const [lines, setLines] = useState<Line[]>([]);
   const [wrong, setWrong] = useState<Wrong[]>([]);
   const [anchor, setAnchor] = useState<number | null>(null);
+  const [dragFrom, setDragFrom] = useState<number | null>(null);
   const [cursor, setCursor] = useState<number | null>(null);
   const [pointer, setPointer] = useState<Star | null>(null);
   const [focused, setFocused] = useState(false);
   const [done, setDone] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [sound, setSound] = useState(false);
+  const [hand, setHand] = useState<HandPoint | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const audioRef = useRef<AudioContext | null>(null);
   const timers = useRef<number[]>([]);
@@ -107,7 +111,7 @@ export function Constellations() {
     return { x: p.x, y: p.y, unit: 800 / svg.getBoundingClientRect().width };
   }
 
-  function starAt(p: { x: number; y: number; unit: number }, pixels: number) {
+  function starAt(p: SkyPoint, pixels: number) {
     let best: number | null = null;
     let bestDistance = pixels * p.unit;
     stars.forEach((s, i) => {
@@ -138,11 +142,11 @@ export function Constellations() {
     setMessage("Let go of the star.");
   }
 
-  // Join the held star to star i, then hold i so the next join carries on from there
-  function join(i: number) {
-    if (anchor === null) return hold(i);
-    if (anchor === i) return;
-    const key = pairKey(anchor, i);
+  // Join star i to the held star (or to where a drag started), then hold i so the next join carries on from there
+  function join(i: number, from = anchor) {
+    if (from === null) return hold(i);
+    if (from === i) return;
+    const key = pairKey(from, i);
     setCursor(i);
     if (drawn.has(key)) {
       setAnchor(i);
@@ -151,12 +155,13 @@ export function Constellations() {
     }
     if (shape && !targets.has(key)) {
       const id = ++wrongId.current;
-      setWrong((w) => [...w, { id, a: anchor, b: i }]);
+      setWrong((w) => [...w, { id, a: from, b: i }]);
       later(() => setWrong((w) => w.filter((x) => x.id !== id)), 900);
-      setMessage(`Not quite. Stars ${anchor + 1} and ${i + 1} aren’t joined in this picture. Still holding star ${anchor + 1}.`);
+      setAnchor(from);
+      setMessage(`Not quite. Stars ${from + 1} and ${i + 1} aren’t joined in this picture. Still holding star ${from + 1}.`);
       return;
     }
-    const next: Line[] = [...lines, [anchor, i]];
+    const next: Line[] = [...lines, [from, i]];
     setLines(next);
     if (sound) ping(NOTES[(next.length - 1) % NOTES.length]);
     if (shape && next.length === shape.lines.length) {
@@ -244,42 +249,79 @@ export function Constellations() {
     }
   }
 
-  function onPointerDown(event: PointerEvent<SVGSVGElement>) {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
-    const p = toSky(event.clientX, event.clientY);
-    if (!p) return;
-    const s = starAt(p, SNAP[event.pointerType] ?? 22);
+  // Shared by the mouse, touch and the camera hand: press on a star, move, and let go
+  function press(p: SkyPoint, pixels: number) {
+    const s = starAt(p, pixels);
+    setPointer(p);
     if (s === null) {
       if (anchor !== null) letGo();
       drag.current = null;
-      return;
+      return false;
     }
-    event.currentTarget.setPointerCapture(event.pointerId);
-    drag.current = { from: s, release: anchor === s, moved: false, x: event.clientX, y: event.clientY };
+    drag.current = { from: s, fresh: anchor === null, moved: false, x: p.x, y: p.y };
+    setDragFrom(s);
+    if (anchor === null) hold(s);
+    return true;
+  }
+
+  function move(p: SkyPoint) {
     setPointer(p);
-    if (anchor !== s) join(s);
+    const d = drag.current;
+    if (d && Math.hypot(p.x - d.x, p.y - d.y) > 8 * p.unit) d.moved = true;
+  }
+
+  function release(p: SkyPoint, pixels: number) {
+    const d = drag.current;
+    drag.current = null;
+    setDragFrom(null);
+    if (!d) return;
+    const s = starAt(p, pixels);
+    // A drag joins where it started to where it ends. A tap joins the held star to the tapped one,
+    // and tapping the held star again lets go of it.
+    if (d.moved) {
+      if (s !== null && s !== d.from) join(s, d.from);
+    } else if (!d.fresh) {
+      if (d.from === anchor) letGo();
+      else join(d.from);
+    }
+  }
+
+  function onPointerDown(event: PointerEvent<SVGSVGElement>) {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const p = toSky(event.clientX, event.clientY);
+    if (p && press(p, SNAP[event.pointerType] ?? 22)) event.currentTarget.setPointerCapture(event.pointerId);
   }
 
   function onPointerMove(event: PointerEvent<SVGSVGElement>) {
-    const d = drag.current;
-    if (event.pointerType !== "mouse" && !d) return;
+    if (event.pointerType !== "mouse" && !drag.current) return;
     const p = toSky(event.clientX, event.clientY);
-    if (p) setPointer(p);
-    if (d && Math.hypot(event.clientX - d.x, event.clientY - d.y) > 8) d.moved = true;
+    if (p) move(p);
   }
 
   function onPointerUp(event: PointerEvent<SVGSVGElement>) {
-    const d = drag.current;
-    drag.current = null;
-    if (event.pointerType !== "mouse") setPointer(null);
-    if (!d) return;
     const p = toSky(event.clientX, event.clientY);
-    const s = p ? starAt(p, SNAP[event.pointerType] ?? 22) : null;
-    if (s !== null && d.moved && s !== anchor) join(s);
-    else if (s === d.from && d.release && !d.moved) letGo();
+    if (p) release(p, SNAP[event.pointerType] ?? 22);
+    if (event.pointerType !== "mouse") setPointer(null);
   }
 
-  const held = anchor === null ? null : stars[anchor];
+  function onHand(point: HandPoint | null, pinch: "start" | "end" | null) {
+    const svg = svgRef.current;
+    if (!point || !svg) {
+      drag.current = null;
+      setDragFrom(null);
+      setHand(null);
+      setPointer(null);
+      return;
+    }
+    const p = { x: point.x * 800, y: point.y * 500, unit: 800 / svg.getBoundingClientRect().width };
+    setHand(point);
+    if (pinch === "start") press(p, SNAP.hand);
+    else if (pinch === "end") release(p, SNAP.hand);
+    else move(p);
+  }
+
+  const start = dragFrom ?? anchor;
+  const held = start === null ? null : stars[start];
   // While holding a star, a dashed line follows the pointer, or points at the keyboard cursor
   const previewEnd = !held
     ? null
@@ -336,6 +378,7 @@ export function Constellations() {
         onPointerUp={onPointerUp}
         onPointerCancel={() => {
           drag.current = null;
+          setDragFrom(null);
           setPointer(null);
         }}
         onPointerLeave={(event) => event.pointerType === "mouse" && setPointer(null)}
@@ -442,6 +485,17 @@ export function Constellations() {
             <circle cx={s.x} cy={s.y} r="5.5" fill="#fef7ed" />
           </g>
         ))}
+        {hand && pointer && (
+          <circle
+            cx={pointer.x}
+            cy={pointer.y}
+            r={hand.pinched ? 8 : 15}
+            fill={hand.pinched ? "#f6cf6a" : "none"}
+            stroke="#f6cf6a"
+            strokeWidth="2.5"
+            pointerEvents="none"
+          />
+        )}
       </svg>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
@@ -479,6 +533,7 @@ export function Constellations() {
           </div>
         </div>
       )}
+      <HandControl onHand={onHand} />
     </div>
   );
 }
