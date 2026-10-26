@@ -45,7 +45,8 @@ export type DesignSite = {
   live: string;
   code: string;
   desktop: { src: string; width: number; height: number };
-  mobile: { src: string; width: number; height: number };
+  // A short looping scroll of the site (animated WebP, 720x450). The still `desktop` shot is the reduced-motion fallback.
+  scroll: string;
 };
 
 const RENDER_NOTE = "Hosted on a free Render instance, so the first load can take about 30 seconds.";
@@ -339,7 +340,7 @@ export const designSites: DesignSite[] = [
     live: "https://gulab-and-co-sweet.vercel.app",
     code: "https://github.com/kuheli7/Gulab-and-Co",
     desktop: { src: "/media/gulab-desktop.webp", width: 1200, height: 633 },
-    mobile: { src: "/media/gulab-mobile.webp", width: 520, height: 1125 },
+    scroll: "/media/gulab-scroll.webp",
   },
   {
     name: "Sip & Sage",
@@ -348,7 +349,7 @@ export const designSites: DesignSite[] = [
     live: "https://sip-and-sage-cafe.vercel.app",
     code: "https://github.com/kuheli7/sip-and-sage-cafe",
     desktop: { src: "/media/sip-desktop.webp", width: 1200, height: 750 },
-    mobile: { src: "/media/sip-mobile.webp", width: 520, height: 1125 },
+    scroll: "/media/sip-scroll.webp",
   },
   {
     name: "Brew & Bounce",
@@ -357,7 +358,7 @@ export const designSites: DesignSite[] = [
     live: "https://brew-and-bounce.vercel.app",
     code: "https://github.com/kuheli7/brew-and-bounce",
     desktop: { src: "/media/brew-desktop.webp", width: 1200, height: 750 },
-    mobile: { src: "/media/brew-mobile.webp", width: 520, height: 1101 },
+    scroll: "/media/brew-scroll.webp",
   },
 ];
 
