@@ -1,4 +1,6 @@
 import type { CSSProperties } from "react";
+import Link from "next/link";
+import { ArrowRightIcon } from "./icons";
 import { SectionHeading } from "./ui";
 
 const skills = [
@@ -73,6 +75,14 @@ export function About() {
             Economics still shows up in what I build: cost attribution, credit risk, sales data, and a habit of
             checking that the numbers actually add up. The rest of the time I’m making small things a little more fun,
             which is how Lumi happened.
+          </p>
+          <p>
+            <Link
+              href="/story"
+              className="inline-flex items-center gap-1.5 font-semibold text-accent underline-offset-4 hover:underline"
+            >
+              Read my story <ArrowRightIcon />
+            </Link>
           </p>
           <h3 className="pt-4 font-display text-xl font-semibold text-fg">Tools I use</h3>
           <dl className="grid gap-3 text-base sm:grid-cols-2">

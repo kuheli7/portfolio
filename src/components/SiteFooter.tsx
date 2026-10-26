@@ -1,11 +1,6 @@
 import { profile } from "@/data/profile";
+import { someday } from "@/data/story";
 import { LocalTime } from "./LocalTime";
-
-const someday = [
-  { wish: "blue, blue oceans", place: "the Andamans" },
-  { wish: "quiet, quiet mountains", place: "Ladakh" },
-  { wish: "cherry blossoms", place: "Kyoto" },
-];
 
 export function SiteFooter() {
   return (

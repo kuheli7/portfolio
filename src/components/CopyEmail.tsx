@@ -35,8 +35,8 @@ export function CopyEmail({ email, className = "" }: { email: string; className?
       </button>
       <div
         role="status"
-        className={`fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-line bg-surface py-2 pr-5 pl-2 text-left shadow-2xl shadow-black/30 transition-[opacity,translate] duration-300 ${
-          status === "idle" ? "pointer-events-none translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+        className={`pointer-events-none fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-line bg-surface py-2 pr-5 pl-2 text-left shadow-2xl shadow-black/30 transition-[opacity,translate] duration-300 ${
+          status === "idle" ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
         }`}
       >
         {status === "copied" && (
