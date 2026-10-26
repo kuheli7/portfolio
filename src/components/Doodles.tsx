@@ -10,10 +10,10 @@ export function PenCircle({ children, delay = "1.8s" }: { children: ReactNode; d
         aria-hidden="true"
         viewBox="0 0 100 50"
         preserveAspectRatio="none"
-        className="scribble pointer-events-none absolute -top-[30%] -left-[13%] h-[160%] w-[126%] overflow-visible"
+        className="scribble pointer-events-none absolute -top-[15%] -left-[8%] h-[130%] w-[118%] sm:-left-[12%] sm:w-[124%] overflow-visible"
         style={{ "--d": delay } as CSSProperties}
       >
-        <path pathLength={1} d="M14 33 C 6 16, 44 5, 76 9 C 98 12, 99 33, 78 42 C 56 50, 14 47, 7 32 C 3 22, 22 11, 42 9" />
+        <path pathLength={1} d="M3 18 C 12 2, 70 1, 92 8 C 106 14, 103 38, 82 44 C 58 50, 12 50, 3 36 C -2 26, 2 12, 40 3" />
       </svg>
     </span>
   );
